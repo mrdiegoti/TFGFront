@@ -1,0 +1,10 @@
+<p>conversation works!</p>
+<h2>{{ conversacion?.titulo }}</h2>
+<p>{{ conversacion?.descripcion }}</p>
+
+<h3>Comentarios</h3>
+<ul>
+  <li *ngFor="let comentario of comentarios">
+    {{ comentario.contenido }} - <i>{{ comentario.usuario?.nombre || 'Anónimo' }}</i>
+  </li>
+</ul>

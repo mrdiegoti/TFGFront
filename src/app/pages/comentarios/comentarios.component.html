@@ -1,0 +1,24 @@
+<div class="comentarios-container">
+  <h3>Comentarios</h3>
+
+  <div *ngIf="comentarios.length === 0">
+    <p>No hay comentarios aún. Sé el primero en comentar.</p>
+  </div>
+
+  <div *ngFor="let comentario of comentarios">
+    <strong>{{ comentario.user?.name || "Anónimo" }}</strong>
+    <p>{{ comentario.contenido }}</p>
+  </div>
+
+  <form (ngSubmit)="enviarComentario()" class="formulario-comentario">
+    <textarea
+      [(ngModel)]="nuevoComentario"
+      name="comentario"
+      rows="3"
+      required
+      placeholder="Escribe un comentario..."
+      class="form-control"
+    ></textarea>
+    <button type="submit" class="btn btn-primary mt-2">Enviar</button>
+  </form>
+</div>

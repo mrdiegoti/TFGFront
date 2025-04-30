@@ -1,0 +1,13 @@
+<p>home works!</p>
+<h1>Bienvenido a la app de la NBA</h1>
+<h2>Conversaciones del foro</h2>
+<div *ngIf="conversaciones.length === 0">No hay conversaciones aún.</div>
+<ul>
+  <li *ngFor="let c of conversaciones">
+    <h3>{{ c.titulo }}</h3>
+    <p>{{ c.descripcion }}</p>
+    <button (click)="verConversacion(c.id)">Ver comentarios</button>
+  </li>
+</ul>
+<p>Estás autenticado.</p>
+<button (click)="logout()">Cerrar sesión</button>
