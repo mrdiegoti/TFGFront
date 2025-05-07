@@ -6,9 +6,10 @@ import { HomeComponent } from './pages/home/home.component';
 import { ConversationComponent } from './pages/conversation/conversation.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'conversacion/:id', component: ConversationComponent },
   { path: 'login', component: LoginComponent },
+  { path: '', component: HomeComponent },
+  { path: 'logout', component: LoginComponent },
+  { path: 'conversacion/:id', component: ConversationComponent },
   { path: 'register', component: RegisterComponent },
   { path: '**', redirectTo: '' },
   { path: 'conversacion/:id/comentarios', component: ConversationComponent }

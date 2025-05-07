@@ -5,10 +5,12 @@
     <p>No hay comentarios aún. Sé el primero en comentar.</p>
   </div>
 
-  <div *ngFor="let comentario of comentarios">
-    <strong>{{ comentario.user?.name || "Anónimo" }}</strong>
-    <p>{{ comentario.contenido }}</p>
+  <div *ngFor="let comentario of comentarios" class="comentario">
+    <p><strong>{{ comentario.user?.name || 'Anónimo' }}</strong></p>
+    <p>{{ comentario.texto }}</p>
   </div>
+  
+  
 
   <form (ngSubmit)="enviarComentario()" class="formulario-comentario">
     <textarea

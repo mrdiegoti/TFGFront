@@ -32,7 +32,7 @@ export class ComentariosComponent implements OnInit {
   enviarComentario(): void {
     if (!this.nuevoComentario.trim()) return;
 
-    this.forum.createComment(this.conversacionId, { contenido: this.nuevoComentario }).subscribe({
+    this.forum.createComment(this.conversacionId, { texto: this.nuevoComentario }).subscribe({
       next: () => {
         this.nuevoComentario = '';
         this.cargarComentarios();
