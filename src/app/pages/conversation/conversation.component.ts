@@ -7,34 +7,17 @@ import { ForumService } from '../../services/forum.service';
   templateUrl: './conversation.component.html'
 })
 export class ConversationComponent implements OnInit {
-  nuevoComentario = '';
-
-  enviarComentario() {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-  
-    const comentario = {
-      texto: this.nuevoComentario
-    };
-  
-    this.forum.createComment(id, comentario).subscribe({
-      next: nuevo => {
-        this.comentarios.push(nuevo); // Añadimos el nuevo comentario a la lista
-        this.nuevoComentario = '';    // Limpiamos el textarea
-      },
-      error: err => console.error('Error enviando comentario', err)
-    });
-  }
-  
-
   conversacion: any;
   comentarios: any[] = [];
+  nuevoComentario = '';
 
-  constructor(
-    private route: ActivatedRoute,
-    private forum: ForumService
-  ) {}
+  constructor(private route: ActivatedRoute, private forum: ForumService) {}
 
   ngOnInit() {
+    this.cargarConversacion();
+  }
+
+  cargarConversacion() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.forum.getConversation(id).subscribe({
       next: data => {
@@ -45,5 +28,25 @@ export class ConversationComponent implements OnInit {
     });
   }
 
-  
+  enviarComentario() {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    const comentario = { texto: this.nuevoComentario };
+
+    this.forum.createComment(id, comentario).subscribe({
+      next: (nuevo: { user?: any; [key: string]: any }) => {
+        console.log('Comentario creado:', nuevo);
+
+        // Opción A: Añadir directamente si viene con user
+        if (nuevo.user) {
+          this.comentarios = [...this.comentarios, nuevo]; // actualiza forzando redibujo
+        } else {
+          // Opción B: recargar desde el backend si el user no viene
+          this.cargarConversacion();
+        }
+
+        this.nuevoComentario = '';
+      },
+      error: err => console.error('Error enviando comentario', err)
+    });
+  }
 }
