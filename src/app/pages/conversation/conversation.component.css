@@ -1,0 +1,57 @@
+.conversation-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 1rem;
+  font-family: Arial, sans-serif;
+}
+
+.description {
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.comments-section {
+  margin-bottom: 2rem;
+}
+
+.comment-card {
+  background: #f9f9f9;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.comment-author {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.comment-content {
+  font-size: 14px;
+  color: #333;
+}
+
+.comment-form textarea {
+  width: 100%;
+  height: 100px;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  resize: vertical;
+}
+
+.comment-form button {
+  background-color: #000;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.comment-form button:hover {
+  background-color: #333;
+}

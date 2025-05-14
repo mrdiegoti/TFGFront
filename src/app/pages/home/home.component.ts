@@ -1,40 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { ForumService } from '../../services/forum.service';
-import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit {
-  conversaciones: any[] = [];
+  ultimasConversaciones: any[] = [];
 
-  constructor(
-    private forum: ForumService,
-    private auth: AuthService,
-    private router: Router
-  ) {}
+  constructor(private forumService: ForumService, private router: Router) {}
 
   ngOnInit(): void {
-    this.forum.getConversations().subscribe({
-      next: (data) => {
-        console.log('Conversaciones obtenidas:', data);
-        this.conversaciones = data;
+    this.forumService.getConversations().subscribe({
+      next: data => {
+        this.ultimasConversaciones = data
+          .sort((a: any, b: any) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+          .slice(0, 3);
       },
-      error: (err) => {
-        console.error('Error cargando conversaciones', err);
-      }
+      error: err => console.error('Error al cargar conversaciones', err)
     });
   }
 
-  logout(): void {
-    console.log('Click en logout');
-    this.auth.logout();
-  }
-
-  verConversacion(id: number): void {
+  irAConversacion(id: number): void {
     this.router.navigate(['/conversacion', id]);
   }
 }

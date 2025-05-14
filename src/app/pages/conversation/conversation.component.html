@@ -1,24 +1,22 @@
-<div class="comentarios-container">
-  <h3>Comentarios</h3>
+<div class="conversation-container">
+  <h2>{{ conversacion?.titulo }}</h2>
+  <p class="description">{{ conversacion?.descripcion }}</p>
 
-  <div *ngIf="comentarios.length === 0">
-    <p>No hay comentarios aún. Sé el primero en comentar.</p>
+  <div class="comments-section">
+    <h3>Comentarios</h3>
+    <div *ngFor="let comentario of comentarios" class="comment-card">
+      <div class="comment-author">
+        <strong>{{ comentario.user?.name || 'Anónimo' }}</strong>
+      </div>
+      <div class="comment-content">
+        {{ comentario.texto || '(sin texto)' }}
+      </div>
+    </div>
   </div>
 
-  <div *ngFor="let comentario of comentarios">
-    <strong>{{ comentario.user?.name || 'Anónimo' }}</strong>
-    <p>{{ comentario.texto || '(Sin texto)' }}</p>
+  <div class="comment-form">
+    <h4>Agregar comentario</h4>
+    <textarea [(ngModel)]="nuevoComentario" placeholder="Escribe tu comentario..."></textarea>
+    <button (click)="enviarComentario()">Enviar</button>
   </div>
-
-  <form (ngSubmit)="enviarComentario()" class="formulario-comentario">
-    <textarea
-      [(ngModel)]="nuevoComentario"
-      name="comentario"
-      rows="3"
-      required
-      placeholder="Escribe un comentario..."
-      class="form-control"
-    ></textarea>
-    <button type="submit" class="btn btn-primary mt-2">Enviar</button>
-  </form>
 </div>

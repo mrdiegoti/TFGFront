@@ -1,0 +1,18 @@
+<div class="container">
+  <h2>Crear Nueva Conversación</h2>
+
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <form (ngSubmit)="crearConversacion()" class="form">
+    <label for="titulo">Título:</label>
+    <input id="titulo" [(ngModel)]="titulo" name="titulo" required />
+
+    <label for="descripcion">Descripción:</label>
+    <textarea id="descripcion" [(ngModel)]="descripcion" name="descripcion" required></textarea>
+
+    <div class="botones">
+      <button type="submit">Crear</button>
+      <button type="button" (click)="cancelar()">Cancelar</button>
+    </div>
+  </form>
+</div>

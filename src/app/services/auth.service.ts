@@ -10,6 +10,8 @@ import { JwtResponse, User } from '../models/user.model';
 export class AuthService {
   private apiURL = 'http://localhost:8000/api';
   private tokenKey = 'token'; // Cambiado de 'access_token' a 'token'
+user: any;
+  api: any;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -58,4 +60,17 @@ export class AuthService {
   isAuthenticated(): boolean {
     return !!this.getToken();
   }
+
+
+getUser() {
+  return this.http.get(`${this.api}/user`, {
+    headers: this.getAuthHeaders()
+  }).subscribe((res: any) => {
+    this.user = res;
+  });
+}
+  getAuthHeaders(): HttpHeaders | { [header: string]: string | string[]; } | undefined {
+    throw new Error('Method not implemented.');
+  }
+
 }

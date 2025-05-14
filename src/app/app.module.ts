@@ -7,9 +7,12 @@ import { FormsModule } from '@angular/forms';
 
 import { LoginComponent } from './pages/login/login.component'; // Ensure this path is correct
 import { RegisterComponent } from './pages/register/register.component';
-import { HomeComponent } from './pages/home/home.component';
+import { ForumComponent } from './pages/forum/forum.component';
 import { ConversationComponent } from './pages/conversation/conversation.component';
 import { ComentariosComponent } from './pages/comentarios/comentarios.component';
+import { CreateConversationComponent } from './create-conversation/create-conversation.component';
+import { HomeComponent } from './pages/home/home.component';
+import { RouterModule } from '@angular/router';
 
 // import { TokenInterceptor } from './interceptors/token.interceptor';
 
@@ -18,15 +21,18 @@ import { ComentariosComponent } from './pages/comentarios/comentarios.component'
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent,
+    ForumComponent,
     ConversationComponent,
     ComentariosComponent,
+    CreateConversationComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    RouterModule
   ],
   providers: [
     // { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }

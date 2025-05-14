@@ -1,0 +1,98 @@
+.forum-container {
+  max-width: 480px;
+  margin: 20px auto;
+  padding: 20px;
+  font-family: 'Segoe UI', sans-serif;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.forum-title {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.btn-new-topic {
+  width: 100%;
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.trending-topics {
+  margin-top: 30px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-view-all {
+  background: white;
+  border: 1px solid #ccc;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.topic-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.topic-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.emoji {
+  font-size: 1.2rem;
+  margin-right: 10px;
+}
+
+.bottom-actions {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+}
+
+.action-btn {
+  width: 30%;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 0.9rem;
+  text-align: center;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .forum-container {
+    margin: 10px;
+    padding: 10px;
+  }
+
+  .bottom-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .action-btn {
+    width: 100%;
+  }
+}
