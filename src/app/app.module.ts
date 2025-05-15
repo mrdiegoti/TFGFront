@@ -13,6 +13,8 @@ import { ComentariosComponent } from './pages/comentarios/comentarios.component'
 import { CreateConversationComponent } from './create-conversation/create-conversation.component';
 import { HomeComponent } from './pages/home/home.component';
 import { RouterModule } from '@angular/router';
+import { NbaScheduleComponent } from './pages/nba-schedule/nba-schedule.component';
+import { EditConversationComponent } from './pages/edit-conversation/edit-conversation.component';
 
 // import { TokenInterceptor } from './interceptors/token.interceptor';
 
@@ -26,6 +28,8 @@ import { RouterModule } from '@angular/router';
     ComentariosComponent,
     CreateConversationComponent,
     HomeComponent,
+    NbaScheduleComponent,
+    EditConversationComponent,
   ],
   imports: [
     BrowserModule,

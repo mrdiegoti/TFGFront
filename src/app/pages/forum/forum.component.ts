@@ -20,6 +20,7 @@ export class ForumComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+     this.auth.getUser();
     this.forum.getConversations().subscribe({
       next: (data) => {
         console.log('Conversaciones obtenidas:', data);

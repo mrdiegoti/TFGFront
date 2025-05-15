@@ -1,8 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+
 @Injectable({ providedIn: 'root' })
 export class ForumService {
+  apiUrl: any;
   crearComentario(conversacionId: number, arg1: { contenido: string }) {
     throw new Error('Method not implemented.');
   }
@@ -81,4 +83,8 @@ export class ForumService {
       }
     );
   }
+
+  getConversationById(id: number) {
+  return this.http.get(`${this.apiUrl}/converasciones/${id}`);
+}
 }

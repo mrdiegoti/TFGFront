@@ -9,21 +9,28 @@ import { JwtResponse, User } from '../models/user.model';
 })
 export class AuthService {
   private apiURL = 'http://localhost:8000/api';
-  private tokenKey = 'token'; // Cambiado de 'access_token' a 'token'
-user: any;
-  api: any;
-
+  private tokenKey = 'token';
+  user: any;
+  
   constructor(private http: HttpClient, private router: Router) {}
-
+  
+  getAuthHeaders(): HttpHeaders {
+  const token = localStorage.getItem('token');
+  return new HttpHeaders({
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  });
+  }
+  
   register(user: User): Observable<JwtResponse> {
     return this.http.post<JwtResponse>(`${this.apiURL}/register`, user).pipe(
-      tap(res => this.storeToken(res.token)) // Cambiado de res.access_token a res.token
+      tap(res => this.storeToken(res.token))
     );
   }
 
   login(user: User): Observable<JwtResponse> {
     return this.http.post<JwtResponse>(`${this.apiURL}/login`, user).pipe(
-      tap(res => this.storeToken(res.token)) // Cambiado de res.access_token a res.token
+      tap(res => this.storeToken(res.token))
     );
   }
 
@@ -62,15 +69,19 @@ user: any;
   }
 
 
-getUser() {
-  return this.http.get(`${this.api}/user`, {
+getUser(): void {
+  this.http.get(`${this.apiURL}/user`, {
     headers: this.getAuthHeaders()
-  }).subscribe((res: any) => {
-    this.user = res;
+  }).subscribe({
+    next: (res: any) => {
+      this.user = res;
+      console.log('Usuario autenticado:', res);
+    },
+    error: (err) => {
+      console.error('Error obteniendo usuario', err);
+    }
   });
 }
-  getAuthHeaders(): HttpHeaders | { [header: string]: string | string[]; } | undefined {
-    throw new Error('Method not implemented.');
-  }
+
 
 }

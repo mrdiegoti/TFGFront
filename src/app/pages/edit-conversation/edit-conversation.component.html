@@ -1,0 +1,18 @@
+<p>edit-conversation works!</p>
+<div class="container">
+  <h2>Edit Conversation</h2>
+
+  <form (ngSubmit)="updateConversation()" *ngIf="conversation">
+    <div>
+      <label for="title">Title:</label>
+      <input id="title" [(ngModel)]="conversation.title" name="title" required />
+    </div>
+
+    <div>
+      <label for="description">Description:</label>
+      <textarea id="description" [(ngModel)]="conversation.description" name="description" required></textarea>
+    </div>
+
+    <button type="submit">Update</button>
+  </form>
+</div>

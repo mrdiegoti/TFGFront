@@ -1,0 +1,17 @@
+<div class="p-4">
+  <h2 class="text-xl font-bold mb-4">NBA Schedule for {{ today }}</h2>
+
+  <div *ngIf="games.length > 0; else noGames">
+    <div *ngFor="let game of games" class="bg-white p-4 rounded shadow mb-2">
+      <div class="font-semibold">
+        {{ game.home_team.full_name }} vs {{ game.visitor_team.full_name }}
+      </div>
+      <div>Date: {{ game.date | date: 'short' }}</div>
+      <div>Score: {{ game.home_team_score }} - {{ game.visitor_team_score }}</div>
+    </div>
+  </div>
+
+  <ng-template #noGames>
+    <div>No hay partidos programados para hoy.</div>
+  </ng-template>
+</div>
