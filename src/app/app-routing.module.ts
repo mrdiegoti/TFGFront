@@ -5,10 +5,11 @@ import { RegisterComponent } from './pages/register/register.component';
 import { ForumComponent } from './pages/forum/forum.component';
 import { ConversationComponent } from './pages/conversation/conversation.component';
 import { ComentariosComponent } from './pages/comentarios/comentarios.component';
-import { CreateConversationComponent } from './create-conversation/create-conversation.component';
+import { CreateConversationComponent } from './pages/create-conversation/create-conversation.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NbaScheduleComponent } from './pages/nba-schedule/nba-schedule.component';
 import { EditConversationComponent } from './pages/edit-conversation/edit-conversation.component';
+import { AllConversationsComponent } from './pages/all-conversations/all-conversations.component';
 
 
 const routes: Routes = [
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'conversacion/:id/comentarios', component: ComentariosComponent },
   { path: 'nba-schedule', component: NbaScheduleComponent },
   { path: 'edit-conversation/:id', component: EditConversationComponent },
+  { path: 'conversaciones', component: AllConversationsComponent },
   { path: '**', redirectTo: '' },
 ];
 

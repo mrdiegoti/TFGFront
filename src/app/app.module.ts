@@ -10,11 +10,13 @@ import { RegisterComponent } from './pages/register/register.component';
 import { ForumComponent } from './pages/forum/forum.component';
 import { ConversationComponent } from './pages/conversation/conversation.component';
 import { ComentariosComponent } from './pages/comentarios/comentarios.component';
-import { CreateConversationComponent } from './create-conversation/create-conversation.component';
+import { CreateConversationComponent } from './pages/create-conversation/create-conversation.component';
 import { HomeComponent } from './pages/home/home.component';
 import { RouterModule } from '@angular/router';
 import { NbaScheduleComponent } from './pages/nba-schedule/nba-schedule.component';
 import { EditConversationComponent } from './pages/edit-conversation/edit-conversation.component';
+import { EditCommentComponent } from './pages/edit-comment/edit-comment.ts.component';
+import { AllConversationsComponent } from './pages/all-conversations/all-conversations.component';
 
 // import { TokenInterceptor } from './interceptors/token.interceptor';
 
@@ -30,6 +32,8 @@ import { EditConversationComponent } from './pages/edit-conversation/edit-conver
     HomeComponent,
     NbaScheduleComponent,
     EditConversationComponent,
+    EditCommentComponent,
+    AllConversationsComponent,
   ],
   imports: [
     BrowserModule,

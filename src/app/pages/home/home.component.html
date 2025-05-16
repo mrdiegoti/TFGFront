@@ -1,79 +1,57 @@
-<div class="container py-4">
-<button routerLink="/nba-schedule" class="bg-blue-600 text-white px-4 py-2 rounded">
-  Ver Calendario NBA
-</button>
+<div class="home-container">
+  <a routerLink="/nba-schedule" class="btn btn-primary mb-4">Ver Calendario NBA</a>
 
-  <!-- Título de temas -->
-  <h2 class="mb-3">Choose a Discussion Topic</h2>
-  <div class="mb-4 d-flex flex-wrap gap-2">
+  <h2 class="home-title">Elige un Tema de Discusión</h2>
+  <div class="topics-wrapper">
     <button
       *ngFor="let c of ultimasConversaciones"
-      class="btn btn-outline-secondary btn-sm"
+      class="btn btn-outline-primary btn-sm"
       (click)="irAConversacion(c.id)"
     >
       {{ c.titulo }}
     </button>
   </div>
 
-  <!-- Partidos destacados -->
-  <h3 class="mb-3">Featured Matches</h3>
-  <div class="row g-3 mb-5">
-    <div class="col-md-6">
-      <div class="card h-100">
-        <div class="card-body">
-          <p class="card-title">Team A vs Team B</p>
-          <p class="card-subtitle text-muted">Game 1</p>
-          <p class="fw-bold mt-2">Final Score: 102-98</p>
-        </div>
-      </div>
+  <h3 class="section-title">Partidos Destacados</h3>
+  <div class="cards-wrapper">
+    <div class="highlight-card">
+      <h4>Team A vs Team B</h4>
+      <p class="text-muted">Game 1</p>
+      <p class="score">Final Score: 102-98</p>
     </div>
-    <div class="col-md-6">
-      <div class="card h-100">
-        <div class="card-body">
-          <p class="card-title">Team C vs Team D</p>
-          <p class="card-subtitle text-muted">Game 2</p>
-          <p class="fw-bold mt-2">Final Score: 85-79</p>
-        </div>
-      </div>
+    <div class="highlight-card">
+      <h4>Team C vs Team D</h4>
+      <p class="text-muted">Game 2</p>
+      <p class="score">Final Score: 85-79</p>
     </div>
   </div>
 
-  <!-- Últimos artículos -->
-  <h3 class="mb-3">Latest Articles</h3>
-  <div class="list-group mb-5">
-    <div class="list-group-item d-flex">
-      <div
-        class="me-3 bg-secondary rounded"
-        style="width: 50px; height: 50px"
-      ></div>
+  <h3 class="section-title">Últimos Artículos</h3>
+  <div class="article-list">
+    <div class="article-card">
+      <div class="article-thumb"></div>
       <div>
         <h5 class="mb-1">The MVP Race</h5>
-        <p class="mb-1 small">
-          Analyzing the contenders for this season's MVP award
-        </p>
+        <p class="mb-1 small">Analizando los contendientes al MVP de esta temporada</p>
         <small class="text-muted">Sports Analyst A</small>
       </div>
     </div>
-    <div class="list-group-item d-flex">
-      <div
-        class="me-3 bg-secondary rounded"
-        style="width: 50px; height: 50px"
-      ></div>
+    <div class="article-card">
+      <div class="article-thumb"></div>
       <div>
         <h5 class="mb-1">Team Rankings</h5>
-        <p class="mb-1 small">Which team has the best record so far?</p>
+        <p class="mb-1 small">¿Qué equipo tiene el mejor récord hasta ahora?</p>
         <small class="text-muted">Sports Reporter B</small>
       </div>
     </div>
   </div>
 
-  <!-- Buscador -->
-  <form class="input-group">
+  <form class="search-bar">
     <input
       type="text"
       class="form-control"
-      placeholder="Search for a specific match or topic"
+      placeholder="Buscar un partido o tema"
     />
-    <button class="btn btn-dark" type="submit">🔍</button>
+    <button class="btn btn-primary" type="submit">🔍</button>
   </form>
 </div>

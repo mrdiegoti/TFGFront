@@ -1,19 +1,24 @@
+// src/app/pages/edit-conversation/edit-conversation.component.ts
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ForumService } from 'src/app/services/forum.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-edit-conversation',
   templateUrl: './edit-conversation.component.html',
-  styleUrls: ['./edit-conversation.component.css']
 })
 export class EditConversationComponent implements OnInit {
   conversationId!: number;
-  conversation: any;
+  conversation: any = {
+    titulo: '',
+    descripcion: ''
+  };
+  apiUrl = 'http://localhost:8000/api';
+loading: any;
 
   constructor(
     private route: ActivatedRoute,
-    private forumService: ForumService,
+    private http: HttpClient,
     private router: Router
   ) {}
 
@@ -23,16 +28,44 @@ export class EditConversationComponent implements OnInit {
   }
 
   loadConversation(): void {
-    this.forumService.getConversationById(this.conversationId).subscribe({
-      next: (data) => this.conversation = data,
-      error: (err) => console.error('Error loading conversation:', err)
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    this.http.get(`${this.apiUrl}/conversaciones/${this.conversationId}`, { headers }).subscribe({
+      next: (data: any) => {
+        this.conversation = {
+          titulo: data.titulo,
+          descripcion: data.descripcion
+        };
+      },
+      error: (err) => {
+        console.error('Error loading conversation:', err);
+        alert('No se pudo cargar la conversación.');
+      }
     });
   }
 
   updateConversation(): void {
-    this.forumService.updateConversation(this.conversationId, this.conversation).subscribe({
-      next: () => this.router.navigate(['/forum']),
-      error: (err) => console.error('Error updating conversation:', err)
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    this.http.put(`${this.apiUrl}/conversaciones/${this.conversationId}`, this.conversation, { headers }).subscribe({
+      next: () => {
+        alert('Conversación actualizada');
+        this.router.navigate(['/forum']);
+      },
+      error: (err) => {
+        if (err.status === 403) {
+          alert('No puedes editar la conversación porque no eres el propietario.');
+        } else {
+          console.error('Error updating conversation:', err);
+          alert('Error al actualizar la conversación');
+        }
+      }
     });
   }
 }

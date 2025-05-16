@@ -1,18 +1,35 @@
-<p>edit-conversation works!</p>
-<div class="container">
-  <h2>Edit Conversation</h2>
+<div class="edit-conversation-container" *ngIf="!loading; else loadingTpl">
+  <h2>Editar Conversación</h2>
 
-  <form (ngSubmit)="updateConversation()" *ngIf="conversation">
-    <div>
-      <label for="title">Title:</label>
-      <input id="title" [(ngModel)]="conversation.title" name="title" required />
-    </div>
+  <form (ngSubmit)="updateConversation()">
 
     <div>
-      <label for="description">Description:</label>
-      <textarea id="description" [(ngModel)]="conversation.description" name="description" required></textarea>
+      <label for="titulo">Título:</label><br />
+      <input
+        type="text"
+        id="titulo"
+        name="titulo"
+        [(ngModel)]="conversation.titulo"
+        placeholder="Título de la conversación"
+        maxlength="255"
+      />
     </div>
 
-    <button type="submit">Update</button>
+    <div style="margin-top: 1rem;">
+      <label for="descripcion">Descripción:</label><br />
+      <textarea
+        id="descripcion"
+        name="descripcion"
+        [(ngModel)]="conversation.descripcion"
+        placeholder="Descripción de la conversación"
+        rows="5"
+      ></textarea>
+    </div>
+
+    <button type="submit" style="margin-top: 1rem;">Actualizar</button>
   </form>
 </div>
+
+<ng-template #loadingTpl>
+  <p>Cargando...</p>
+</ng-template>

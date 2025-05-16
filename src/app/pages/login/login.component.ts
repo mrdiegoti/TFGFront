@@ -5,11 +5,13 @@ import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html'
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
   user: User = { email: '', password: '' };
   error: string = '';
+loginSuccess: any;
 
   constructor(private auth: AuthService, private router: Router) {}
 

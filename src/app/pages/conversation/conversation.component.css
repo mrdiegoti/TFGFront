@@ -14,22 +14,26 @@
   margin-bottom: 2rem;
 }
 
+/* Reutilizamos la clase conversation-card para las cards de comentario */
 .comment-card {
-  background: #f9f9f9;
-  border-radius: 8px;
+  background-color: #ffffff;
+  border: 2px solid #1e3a8a;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(30, 58, 138, 0.1);
   padding: 1rem;
   margin-bottom: 1rem;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
 .comment-author {
   font-weight: bold;
   margin-bottom: 0.5rem;
+  color: #dc2626; /* opcional para que destaque igual que títulos */
 }
 
 .comment-content {
   font-size: 14px;
-  color: #333;
+  color: #374151;
+  margin-bottom: 1rem;
 }
 
 .comment-form textarea {
@@ -44,14 +48,36 @@
 }
 
 .comment-form button {
-  background-color: #000;
+  background-color: #1e3a8a;
   color: white;
   border: none;
   padding: 0.6rem 1.2rem;
-  border-radius: 4px;
+  border-radius: 10px;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .comment-form button:hover {
-  background-color: #333;
+  background-color: #dc2626;
+}
+
+/* Botones editar y eliminar dentro de comentario */
+
+.comment-actions button {
+  font-size: 0.85rem;
+  margin-right: 0.5rem;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.comment-actions button:first-child {
+  background-color: #facc15; /* amarillo para editar */
+  color: #000;
+}
+
+.comment-actions button:last-child {
+  background-color: #dc2626; /* rojo para eliminar */
+  color: #fff;
 }

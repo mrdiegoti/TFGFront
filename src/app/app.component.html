@@ -1,9 +1,47 @@
-<nav>
-  <a routerLink="/login">Login</a> | 
-  <a routerLink="/register">Registro</a> |
-  <a routerLink="/home">Home</a> |
-  <a routerLink="/forum">Foro</a> |
-  <button (click)="logout()" class="btn btn-danger">Logout</button>
-</nav>
+<header class="main-header" [class.expanded]="menuAbierto">
+  <div class="container header-content">
+    <div class="logo">
+      <a routerLink="/">Hoops Fever</a>
+    </div>
 
-<router-outlet></router-outlet>
+    <div class="menu-toggle" (click)="toggleMenu()">
+      <div [class.bar1]="menuAbierto"></div>
+      <div [class.bar2]="menuAbierto"></div>
+      <div [class.bar3]="menuAbierto"></div>
+    </div>
+
+    <nav class="nav-links" [class.open]="menuAbierto">
+      <a routerLink="/forum" (click)="cerrarMenu()">Conversaciones</a>
+      <a routerLink="/nueva-conversacion" (click)="cerrarMenu()">Nueva</a>
+      <a routerLink="/register" (click)="cerrarMenu()">Registrarse</a>
+      <button (click)="logout()">Salir</button>
+    </nav>
+  </div>
+</header>
+
+<main class="container" style="padding-top: 5rem;">
+  <router-outlet></router-outlet>
+</main>
+<footer class="main-footer">
+  <div class="footer-content container">
+    <div class="footer-section">
+      <h4>Sobre el Foro</h4>
+      <p>Un espacio para debatir, compartir y opinar sobre todo lo relacionado con la NBA. Hecho con pasión por el baloncesto.</p>
+    </div>
+
+    <div class="footer-section">
+      <h4>Enlaces</h4>
+      <ul>
+        <li><a routerLink="/forum">Conversaciones</a></li>
+        <li><a routerLink="/nueva-conversacion">Nueva Conversación</a></li>
+        <li><a routerLink="/perfil">Mi Perfil</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-section">
+      <h4>Contacto</h4>
+      <p>Email: contacto&#64;foronba.com</p>
+      <p>© 2025 ForoNBA</p>
+    </div>
+  </div>
+</footer>

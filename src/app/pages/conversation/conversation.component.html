@@ -4,12 +4,24 @@
 
   <div class="comments-section">
     <h3>Comentarios</h3>
-    <div *ngFor="let comentario of comentarios" class="comment-card">
+    <div *ngFor="let comentario of comentarios" class="conversation-card comment-card">
       <div class="comment-author">
         <strong>{{ comentario.user?.name || 'Anónimo' }}</strong>
       </div>
-      <div class="comment-content">
+
+      <div class="comment-content" *ngIf="!comentario.editando">
         {{ comentario.texto || '(sin texto)' }}
+      </div>
+
+      <div class="comment-edit-form" *ngIf="comentario.editando">
+        <textarea [(ngModel)]="comentario.texto"></textarea>
+        <button (click)="guardarEdicionComentario(comentario)">Guardar</button>
+        <button (click)="cancelarEdicionComentario(comentario)">Cancelar</button>
+      </div>
+
+      <div class="comment-actions">
+        <button (click)="editarComentario(comentario)">Editar</button>
+        <button (click)="eliminarComentario(comentario.id)">Eliminar</button>
       </div>
     </div>
   </div>

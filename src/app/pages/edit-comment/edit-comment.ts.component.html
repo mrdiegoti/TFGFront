@@ -1,0 +1,16 @@
+<p>edit-comment.ts works!</p>
+<div>
+  <h2>Editar Comentario</h2>
+  <form (ngSubmit)="updateComment()">
+    <label for="contenido">Contenido:</label><br />
+    <textarea
+      id="contenido"
+      name="contenido"
+      [(ngModel)]="comentario.contenido"
+      rows="5"
+      required
+    ></textarea>
+
+    <button type="submit" style="margin-top: 1rem;">Actualizar Comentario</button>
+  </form>
+</div>

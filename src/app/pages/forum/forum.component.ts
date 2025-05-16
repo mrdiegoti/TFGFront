@@ -10,8 +10,6 @@ import { Router } from '@angular/router';
 })
 export class ForumComponent implements OnInit {
   conversaciones: any[] = [];
-  http: any;
-  api: any;
 
   constructor(
     private forum: ForumService,
@@ -20,23 +18,20 @@ export class ForumComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-     this.auth.getUser();
+    this.auth.getUser();
+
     this.forum.getConversations().subscribe({
       next: (data) => {
-        console.log('Conversaciones obtenidas:', data);
-        this.conversaciones = data;
+        // Mostrar solo las 3 últimas conversaciones
+        this.conversaciones = data.slice(-3).reverse();
       },
       error: (err) => {
         console.error('Error cargando conversaciones', err);
       },
     });
-
-    this.auth.getUser();
   }
-  
 
   logout(): void {
-    console.log('Click en logout');
     this.auth.logout();
   }
 
@@ -53,28 +48,21 @@ export class ForumComponent implements OnInit {
   }
 
   eliminarConversacion(id: number): void {
-    if (!confirm('¿Estás seguro de que deseas eliminar esta conversación?'))
-      return;
+    if (!confirm('¿Estás seguro de que deseas eliminar esta conversación?')) return;
 
     this.forum.deleteConversation(id).subscribe({
       next: () => {
-        this.conversaciones = this.conversaciones.filter(
-          (conv) => conv.id !== id
-        );
+        this.conversaciones = this.conversaciones.filter(conv => conv.id !== id);
       },
       error: (err) => {
         console.error('Error eliminando conversación:', err);
+        alert('Error al eliminar la conversación, no eres el propietario.');
       },
     });
   }
 
-  deleteConversation(id: number) {
-  return this.http.delete(`${this.api}/conversaciones/${id}`, {
-    headers: this.getAuthHeaders()
-  });
+  verTodas(): void {
+  this.router.navigate(['/conversaciones']);
 }
-  getAuthHeaders() {
-    throw new Error('Method not implemented.');
-  }
 
 }

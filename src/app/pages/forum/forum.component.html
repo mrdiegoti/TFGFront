@@ -1,50 +1,43 @@
 <div class="forum-container">
-  <h2 class="forum-title">Forum</h2>
-
-  <a routerLink="/nueva-conversacion" class="btn btn-primary">New Topic</a>
-
-  <div class="trending-topics">
-    <div class="section-header">
-      <h3>Trending Topics</h3>
-      <button class="btn-view-all">View All →</button>
+  <div class="forum-header">
+    <h2 class="forum-title">Últimas Conversaciones</h2>
+    <div class="forum-actions">
+      <div style="display: flex; justify-content: space-between; width: 100%;">
+        <a routerLink="/create-conversation" class="btn btn-create">📝 Nueva Conversación</a>
+        <a routerLink="/conversaciones" class="btn btn-create">➕Ver todas</a>
+      </div>
     </div>
+  </div>
 
+  <div class="cards-wrapper">
     <div
       *ngFor="let conv of conversaciones"
-      class="conversation-item"
+      class="conversation-card"
       (click)="verConversacion(conv.id)"
     >
-      <span class="icon">💬</span>
-      <span class="title">{{ conv.titulo }} | </span>
-      <span class="title">{{ conv.descripcion }}</span>
+      <h3>{{ conv.titulo }}</h3>
+      <p>{{ conv.descripcion | slice:0:120 }}</p>
 
       <div class="btn-group mt-2">
         <button
           class="btn btn-sm btn-warning me-2"
           (click)="editarConversacion(conv.id); $event.stopPropagation()"
         >
-          Editar
+          ✏️ Editar
         </button>
         <button
           class="btn btn-sm btn-danger"
           (click)="eliminarConversacion(conv.id); $event.stopPropagation()"
         >
-          Eliminar
+          🗑️ Eliminar
         </button>
       </div>
     </div>
-
-    <!-- <ul class="topic-list">
-      <li *ngFor="let topic of trendingTopics" class="topic-item">
-        <span class="emoji">{{ topic.icon }}</span>
-        {{ topic.nombre }}
-      </li>
-    </ul> -->
   </div>
 
   <div class="bottom-actions">
-    <button class="action-btn">🔍<br />Search</button>
-    <button class="action-btn">💬<br />Discussions</button>
-    <button class="action-btn">📝<br />New Topic</button>
+    <button class="action-btn">🔍<br />Buscar</button>
+    <button class="action-btn">💬<br />Foro</button>
+    <button class="action-btn" (click)="crearConversacion()">📝<br />Nuevo</button>
   </div>
 </div>

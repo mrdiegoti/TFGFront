@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ForumService } from '../services/forum.service';
+import { ForumService } from '../../services/forum.service';
 
 @Component({
   selector: 'app-create-conversation',

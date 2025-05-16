@@ -1,10 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
+
 
 
 @Injectable({ providedIn: 'root' })
 export class ForumService {
-  apiUrl: any;
   crearComentario(conversacionId: number, arg1: { contenido: string }) {
     throw new Error('Method not implemented.');
   }
@@ -85,6 +86,15 @@ export class ForumService {
   }
 
   getConversationById(id: number) {
-  return this.http.get(`${this.apiUrl}/converasciones/${id}`);
+  return this.http.get(`${this.api}/converasciones/${id}`);
 }
+
+getCommentById(id: number) {
+  const token = localStorage.getItem('token');
+  const headers = new HttpHeaders({
+    Authorization: `Bearer ${token}`
+  });
+  return this.http.get<any>(`${this.api}/comentarios/${id}`, { headers });
+}
+
 }
