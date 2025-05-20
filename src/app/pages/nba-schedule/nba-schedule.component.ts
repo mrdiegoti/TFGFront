@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NbaService } from '../../services/nba.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-nba-schedule',
@@ -7,39 +7,25 @@ import { NbaService } from '../../services/nba.service';
   styleUrls: ['./nba-schedule.component.css']
 })
 export class NbaScheduleComponent implements OnInit {
-  games: any[] = [];
-  today: string = new Date().toISOString().split('T')[0];
-  selectedDate: string | undefined;
+  partidos: any[] = [];
+  error: string = '';
+  fecha: any;
 
-  constructor(private nbaService: NbaService) {}
+  constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.loadTodayGames();
+    this.obtenerPartidos();
   }
 
-  loadTodayGames(): void {
-    this.nbaService.getGamesByDate(this.today).subscribe({
-      next: (res: any) => {
-        this.games = res.data;
-      },
-      error: (err) => {
-        console.error('Error al cargar los juegos:', err);
-      }
-    });
-  }
-
-  loadGames(): void {
-    if (!this.selectedDate) {
-      console.error('No date selected');
-      return;
-    }
-    this.nbaService.getGamesByDate(this.selectedDate).subscribe({
-      next: (res: any) => {
-        this.games = res.data;
-      },
-      error: (err) => {
-        console.error('Error al cargar los juegos:', err);
-      }
-    });
+  obtenerPartidos(): void {
+    this.http.get<any>(`http://localhost:8000/api/schedule/${this.fecha}`)
+      .subscribe({
+        next: (data) => {
+          this.partidos = data.games || [];
+        },
+        error: (err) => {
+          this.error = 'Error al obtener el calendario';
+        }
+      });
   }
 }

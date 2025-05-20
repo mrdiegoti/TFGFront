@@ -1,16 +1,21 @@
-.container {
-  padding: 16px;
-}
-
-.title {
-  text-align: center;
-  margin-bottom: 16px;
+.calendar-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 1.5rem;
+  background-color: #f3f4f6;
+  border-radius: 10px;
 }
 
 .game-card {
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 12px;
-  margin-bottom: 12px;
-  background-color: #f9f9f9;
+  background-color: #ffffff;
+  border: 2px solid #1e3a8a;
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 6px rgba(30, 58, 138, 0.1);
+}
+
+.error {
+  color: red;
+  margin-bottom: 1rem;
 }

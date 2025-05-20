@@ -24,6 +24,7 @@ const routes: Routes = [
   { path: 'nba-schedule', component: NbaScheduleComponent },
   { path: 'edit-conversation/:id', component: EditConversationComponent },
   { path: 'conversaciones', component: AllConversationsComponent },
+  { path: 'nba-schedule', component: NbaScheduleComponent },
   { path: '**', redirectTo: '' },
 ];
 
