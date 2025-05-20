@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class NbaScheduleComponent implements OnInit {
   partidos: any[] = [];
   error: string = '';
-  fecha: any;
+  fecha: string = '2024-11-01';
 
   constructor(private http: HttpClient) {}
 
@@ -18,7 +18,7 @@ export class NbaScheduleComponent implements OnInit {
   }
 
   obtenerPartidos(): void {
-    this.http.get<any>(`http://localhost:8000/api/schedule/${this.fecha}`)
+    this.http.get<any>(`http://localhost:8000/api/nba/schedule/${this.fecha}`)
       .subscribe({
         next: (data) => {
           this.partidos = data.games || [];
