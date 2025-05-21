@@ -1,0 +1,74 @@
+<div *ngIf="partido">
+    <h2>{{ partido.away.name }} &#64; {{ partido.home.name }}</h2>
+    <p><strong>Fecha:</strong> {{ partido.scheduled | date }}</p>
+    <p><strong>Resultado:</strong> {{ partido.away.points }} - {{ partido.home.points }}</p>
+    <p><strong>Estado:</strong> {{ partido.status }}</p>
+
+    <h3>Estadio</h3>
+    <p>{{ partido.venue?.name }}, {{ partido.venue?.city }}</p>
+
+    <h3>Resumen</h3>
+    <p *ngIf="partido.summary">{{ partido.summary }}</p>
+
+    <div class="table-container" *ngIf="estadisticas">
+        <h3>{{ partido.away.name }}</h3>
+        <table class="stats-table">
+            <thead>
+                <tr>
+                    <th>Jugador</th>
+                    <th>MIN</th>
+                    <th>PTS</th>
+                    <th>REB</th>
+                    <th>AST</th>
+                    <th>STL</th>
+                    <th>BLK</th>
+                    <th>PF</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let jugador of estadisticas.away">
+                    <td>{{ jugador.name }}</td>
+                    <td>{{ jugador.minutes }}</td>
+                    <td>{{ jugador.points }}</td>
+                    <td>{{ jugador.rebounds }}</td>
+                    <td>{{ jugador.assists }}</td>
+                    <td>{{ jugador.steals }}</td>
+                    <td>{{ jugador.blocks }}</td>
+                    <td>{{ jugador.personal_fouls }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>{{ partido.home.name }}</h3>
+        <table class="stats-table">
+            <thead>
+                <tr>
+                    <th>Jugador</th>
+                    <th>MIN</th>
+                    <th>PTS</th>
+                    <th>REB</th>
+                    <th>AST</th>
+                    <th>STL</th>
+                    <th>BLK</th>
+                    <th>PF</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let jugador of estadisticas.home">
+                    <td>{{ jugador.name }}</td>
+                    <td>{{ jugador.minutes }}</td>
+                    <td>{{ jugador.points }}</td>
+                    <td>{{ jugador.rebounds }}</td>
+                    <td>{{ jugador.assists }}</td>
+                    <td>{{ jugador.steals }}</td>
+                    <td>{{ jugador.blocks }}</td>
+                    <td>{{ jugador.personal_fouls }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div *ngIf="error" class="error">
+    <p>{{ error }}</p>
+</div>

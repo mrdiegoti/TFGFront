@@ -10,6 +10,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { NbaScheduleComponent } from './pages/nba-schedule/nba-schedule.component';
 import { EditConversationComponent } from './pages/edit-conversation/edit-conversation.component';
 import { AllConversationsComponent } from './pages/all-conversations/all-conversations.component';
+import { NbaGameDetailComponent } from './pages/nba-game-detail/nba-game-detail.component';
 
 
 const routes: Routes = [
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'edit-conversation/:id', component: EditConversationComponent },
   { path: 'conversaciones', component: AllConversationsComponent },
   { path: 'nba-schedule', component: NbaScheduleComponent },
+  { path: 'nba/game/:id', component: NbaGameDetailComponent },
   { path: '**', redirectTo: '' },
 ];
 

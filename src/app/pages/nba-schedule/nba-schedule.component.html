@@ -1,18 +1,35 @@
-<p>nba-schedule works!</p>
-<div class="calendar-container">
-  <h2>Calendario NBA - {{ fecha }}</h2>
+<div class="schedule-container">
+  <h2>Calendario NBA</h2>
 
-  <div *ngIf="error" class="error">{{ error }}</div>
+  <input type="date" [(ngModel)]="fecha" (change)="obtenerPartidos()" />
 
-  <div *ngIf="partidos.length > 0; else noGames">
-    <div *ngFor="let game of partidos" class="game-card">
-      <p><strong>{{ game.home.name }}</strong> vs <strong>{{ game.away.name }}</strong></p>
-      <p>{{ game.scheduled | date: 'short' }}</p>
-      <p>Estado: {{ game.status }}</p>
-    </div>
+  <div *ngIf="error" class="error">
+    {{ error }}
   </div>
 
-  <ng-template #noGames>
-    <p>No hay partidos para esta fecha.</p>
-  </ng-template>
+  <div *ngIf="partidos.length === 0 && !error">
+    No hay partidos programados para esta fecha.
+  </div>
+
+  <div *ngFor="let partido of partidos" class="partido-card">
+    <div class="equipos">
+      <div class="equipo">
+        <img [src]="getLogoUrl(partido.away.name)" alt="{{ partido.away.name }}" />
+        <span>{{ partido.away.name }}</span>
+        <strong *ngIf="partido.away_points !== null">{{ partido.away_points }}</strong>
+      </div>
+      <span class="vs">vs</span>
+      <div class="equipo">
+        <img [src]="getLogoUrl(partido.home.name)" alt="{{ partido.home.name }}" />
+        <span>{{ partido.home.name }}</span>
+        <strong *ngIf="partido.home_points !== null">{{ partido.home_points }}</strong>
+      </div>
+    </div>
+
+    <div class="detalles">
+      Estado: {{ partido.status }} | Hora: {{ partido.scheduled | date:'shortTime' }}
+    </div>
+
+    <button class="btn-detalles" (click)="verDetalles(partido.id)">Ver detalles</button>
+  </div>
 </div>

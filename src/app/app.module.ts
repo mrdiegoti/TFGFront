@@ -17,6 +17,7 @@ import { NbaScheduleComponent } from './pages/nba-schedule/nba-schedule.componen
 import { EditConversationComponent } from './pages/edit-conversation/edit-conversation.component';
 import { EditCommentComponent } from './pages/edit-comment/edit-comment.ts.component';
 import { AllConversationsComponent } from './pages/all-conversations/all-conversations.component';
+import { NbaGameDetailComponent } from './pages/nba-game-detail/nba-game-detail.component';
 
 // import { TokenInterceptor } from './interceptors/token.interceptor';
 
@@ -34,6 +35,7 @@ import { AllConversationsComponent } from './pages/all-conversations/all-convers
     EditConversationComponent,
     EditCommentComponent,
     AllConversationsComponent,
+    NbaGameDetailComponent,
   ],
   imports: [
     BrowserModule,
