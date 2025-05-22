@@ -51,3 +51,19 @@ p {
   margin-top: 2rem;
   text-align: center;
 }
+
+.comments-section {
+  margin-top: 2rem;
+}
+.comment {
+  padding: 0.5rem;
+  border-bottom: 1px solid #ddd;
+}
+.comment-form textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.comment-form button {
+  padding: 0.5rem 1rem;
+}
