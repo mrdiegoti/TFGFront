@@ -1,76 +1,76 @@
 <div *ngIf="partido">
-    <h2>{{ partido.away.name }} &#64; {{ partido.home.name }}</h2>
-    <p><strong>Fecha:</strong> {{ partido.scheduled | date }}</p>
-    <p><strong>Resultado:</strong> {{ partido.away.points }} - {{ partido.home.points }}</p>
-    <p><strong>Estado:</strong> {{ partido.status }}</p>
+  <h2>{{ partido.away.name }} &#64; {{ partido.home.name }}</h2>
+  <p><strong>Fecha:</strong> {{ partido.scheduled | date }}</p>
+  <p><strong>Resultado:</strong> {{ partido.away.points }} - {{ partido.home.points }}</p>
+  <p><strong>Estado:</strong> {{ partido.status }}</p>
 
-    <h3>Estadio</h3>
-    <p>{{ partido.venue?.name }}, {{ partido.venue?.city }}</p>
+  <h3>Estadio</h3>
+  <p>{{ partido.venue?.name }}, {{ partido.venue?.city }}</p>
 
-    <h3>Resumen</h3>
-    <p *ngIf="partido.summary">{{ partido.summary }}</p>
+  <h3>Resumen</h3>
+  <p *ngIf="partido.summary">{{ partido.summary }}</p>
 
-    <div class="table-container" *ngIf="estadisticas">
-        <h3>{{ partido.away.name }}</h3>
-        <table class="stats-table">
-            <thead>
-                <tr>
-                    <th>Jugador</th>
-                    <th>MIN</th>
-                    <th>PTS</th>
-                    <th>REB</th>
-                    <th>AST</th>
-                    <th>STL</th>
-                    <th>BLK</th>
-                    <th>PF</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let jugador of estadisticas.away">
-                    <td>{{ jugador.name }}</td>
-                    <td>{{ jugador.minutes }}</td>
-                    <td>{{ jugador.points }}</td>
-                    <td>{{ jugador.rebounds }}</td>
-                    <td>{{ jugador.assists }}</td>
-                    <td>{{ jugador.steals }}</td>
-                    <td>{{ jugador.blocks }}</td>
-                    <td>{{ jugador.personal_fouls }}</td>
-                </tr>
-            </tbody>
-        </table>
+  <div class="table-container" *ngIf="estadisticas">
+    <h3>{{ partido.away.name }}</h3>
+    <table class="stats-table">
+      <thead>
+        <tr>
+          <th>Jugador</th>
+          <th>MIN</th>
+          <th>PTS</th>
+          <th>REB</th>
+          <th>AST</th>
+          <th>STL</th>
+          <th>BLK</th>
+          <th>PF</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let jugador of estadisticas.away">
+          <td>{{ jugador.name }}</td>
+          <td>{{ jugador.minutes }}</td>
+          <td>{{ jugador.points }}</td>
+          <td>{{ jugador.rebounds }}</td>
+          <td>{{ jugador.assists }}</td>
+          <td>{{ jugador.steals }}</td>
+          <td>{{ jugador.blocks }}</td>
+          <td>{{ jugador.personal_fouls }}</td>
+        </tr>
+      </tbody>
+    </table>
 
-        <h3>{{ partido.home.name }}</h3>
-        <table class="stats-table">
-            <thead>
-                <tr>
-                    <th>Jugador</th>
-                    <th>MIN</th>
-                    <th>PTS</th>
-                    <th>REB</th>
-                    <th>AST</th>
-                    <th>STL</th>
-                    <th>BLK</th>
-                    <th>PF</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let jugador of estadisticas.home">
-                    <td>{{ jugador.name }}</td>
-                    <td>{{ jugador.minutes }}</td>
-                    <td>{{ jugador.points }}</td>
-                    <td>{{ jugador.rebounds }}</td>
-                    <td>{{ jugador.assists }}</td>
-                    <td>{{ jugador.steals }}</td>
-                    <td>{{ jugador.blocks }}</td>
-                    <td>{{ jugador.personal_fouls }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <h3>{{ partido.home.name }}</h3>
+    <table class="stats-table">
+      <thead>
+        <tr>
+          <th>Jugador</th>
+          <th>MIN</th>
+          <th>PTS</th>
+          <th>REB</th>
+          <th>AST</th>
+          <th>STL</th>
+          <th>BLK</th>
+          <th>PF</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let jugador of estadisticas.home">
+          <td>{{ jugador.name }}</td>
+          <td>{{ jugador.minutes }}</td>
+          <td>{{ jugador.points }}</td>
+          <td>{{ jugador.rebounds }}</td>
+          <td>{{ jugador.assists }}</td>
+          <td>{{ jugador.steals }}</td>
+          <td>{{ jugador.blocks }}</td>
+          <td>{{ jugador.personal_fouls }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <div *ngIf="error" class="error">
-    <p>{{ error }}</p>
+  <p>{{ error }}</p>
 </div>
 
 <div class="comments-section">
@@ -78,15 +78,34 @@
 
   <div *ngIf="comentarios.length > 0; else sinComentarios">
     <div *ngFor="let comentario of comentarios" class="comment">
-      <p><strong>{{ comentario.user.name }}:</strong> {{ comentario.content }}</p>
-      <small>{{ comentario.created_at | date: 'short' }}</small>
+
+      <!-- Mostrar comentario o editor inline -->
+      <div *ngIf="comentarioEnEdicionId !== comentario.id; else editarComentario">
+        <p><strong>{{ comentario.user?.name || 'Usuario desconocido' }}:</strong> {{ comentario.content }}</p>
+        <small>{{ comentario.created_at | date: 'short' }}</small>
+
+        <div class="comment-actions">
+          <button (click)="startEditing(comentario)">Editar</button>
+          <button (click)="deleteComment(comentario.id!)">Eliminar</button>
+        </div>
+      </div>
+
+      <ng-template #editarComentario>
+        <textarea [(ngModel)]="contenidoEditado" rows="3"></textarea>
+        <div>
+          <button (click)="saveEdit(comentario)">Guardar</button>
+          <button (click)="cancelEditing()">Cancelar</button>
+        </div>
+      </ng-template>
+
     </div>
   </div>
+
   <ng-template #sinComentarios>
     <p>Aún no hay comentarios.</p>
   </ng-template>
 
-  <div class="comment-form">
+  <div class="comment-form" *ngIf="isAuthenticated">
     <h4>Deja tu comentario</h4>
     <form (ngSubmit)="enviarComentario()">
       <textarea [(ngModel)]="nuevoComentario" name="nuevoComentario" rows="3" required></textarea>
@@ -94,7 +113,9 @@
     </form>
   </div>
 
-  <!-- <div *ngIf="!isAuthenticated">
+  <!--
+  <div *ngIf="!isAuthenticated">
     <p><em>Debes iniciar sesión para comentar.</em></p>
-  </div> -->
+  </div>
+  -->
 </div>

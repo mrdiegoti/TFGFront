@@ -18,8 +18,9 @@ import { EditConversationComponent } from './pages/edit-conversation/edit-conver
 import { EditCommentComponent } from './pages/edit-comment/edit-comment.ts.component';
 import { AllConversationsComponent } from './pages/all-conversations/all-conversations.component';
 import { NbaGameDetailComponent } from './pages/nba-game-detail/nba-game-detail.component';
-
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { PlayoffsBracketComponent } from './pages/playoffs-bracket/playoffs-bracket.component';
+// import { EditGameCommentComponent } from './pages/edit-game-comment/edit-game-comment.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,8 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     EditCommentComponent,
     AllConversationsComponent,
     NbaGameDetailComponent,
+    PlayoffsBracketComponent,
+    // EditGameCommentComponent,
   ],
   imports: [
     BrowserModule,

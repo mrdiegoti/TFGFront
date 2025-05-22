@@ -1,0 +1,17 @@
+<div *ngIf="error" class="error">{{ error }}</div>
+
+<div>
+  <h2>Playoffs Bracket</h2>
+
+  <div *ngFor="let round of Object.keys(matchupsGrouped)">
+    <h3>Ronda {{ round }}</h3>
+
+    <div *ngFor="let match of matchupsGrouped[+round]" class="matchup">
+      <div>
+        <strong>{{ match.home_team }}</strong> ({{ match.home_score ?? '-' }}) vs 
+        <strong>{{ match.away_team }}</strong> ({{ match.away_score ?? '-' }})
+        <span *ngIf="match.winner">- Ganador: {{ match.winner }}</span>
+      </div>
+    </div>
+  </div>
+</div>

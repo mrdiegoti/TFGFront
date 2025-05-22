@@ -7,8 +7,10 @@ import { GameComment } from '../models/game-comment.model';
   providedIn: 'root',
 })
 export class GameCommentService {
-  private apiUrl = 'http://localhost:8000/api/games';
-  
+  private apiUrl = 'http://localhost:8000/api';
+
+  constructor(private http: HttpClient) {}
+
   private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('token') || '';
     return new HttpHeaders({
@@ -17,29 +19,33 @@ export class GameCommentService {
     });
   }
 
-  constructor(private http: HttpClient) {}
-
+  // Obtener comentarios de un partido (pública)
   getComments(gameId: string): Observable<GameComment[]> {
-    return this.http.get<GameComment[]>(`${this.apiUrl}/${gameId}/comments`);
+    return this.http.get<GameComment[]>(`${this.apiUrl}/games/${gameId}/comments`);
   }
 
+  // Crear comentario (protegida)
   postComment(gameId: string, comment: string): Observable<GameComment> {
-    return this.http.post<GameComment>(`${this.apiUrl}/${gameId}/comments`, {
-      content: comment,
-    });
+    return this.http.post<GameComment>(
+      `${this.apiUrl}/games/${gameId}/comments`,
+      { content: comment },
+      { headers: this.getAuthHeaders() }
+    );
   }
 
-  // Editar comentario
-  updateComment(commentId: number, content: string): Observable<any> {
-    const token = localStorage.getItem('token') || '';
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.put(`${this.apiUrl}/games/comments/${commentId}`, { content }, { headers });
+  // Editar comentario (protegida)
+  updateComment(id: number, content: string): Observable<any> {
+    return this.http.put(
+      `${this.apiUrl}/games/comments/${id}`,
+      { content },
+      { headers: this.getAuthHeaders() }
+    );
   }
 
-  // Eliminar comentario
+  // Eliminar comentario (protegida)
   deleteComment(commentId: number): Observable<any> {
-    const token = localStorage.getItem('token') || '';
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.delete(`${this.apiUrl}/games/comments/${commentId}`, { headers });
+    return this.http.delete(`${this.apiUrl}/games/comments/${commentId}`, {
+      headers: this.getAuthHeaders(),
+    });
   }
 }

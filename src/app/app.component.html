@@ -12,9 +12,11 @@
 
     <nav class="nav-links" [class.open]="menuAbierto">
       <a routerLink="/nba-schedule" class="btn btn-primary">Ver Calendario NBA</a>
+      <a routerLink="/playoffs-bracket" (click)="cerrarMenu()" class="btn btn-secondary">Bracket Playoffs</a>
       <a routerLink="/forum" (click)="cerrarMenu()">Conversaciones</a>
       <a routerLink="/nueva-conversacion" (click)="cerrarMenu()">Nueva</a>
       <a routerLink="/register" (click)="cerrarMenu()">Registrarse</a>
+      <a routerLink="/login" (click)="cerrarMenu()">Iniciar Sesión</a>
       <button (click)="logout()">Salir</button>
     </nav>
   </div>

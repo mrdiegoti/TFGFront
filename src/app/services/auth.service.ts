@@ -8,6 +8,9 @@ import { JwtResponse, User } from '../models/user.model';
   providedIn: 'root'
 })
 export class AuthService {
+  isLoggedIn(): boolean {
+    return this.isAuthenticated();
+  }
   private apiURL = 'http://localhost:8000/api';
   private tokenKey = 'token';
   user: any;

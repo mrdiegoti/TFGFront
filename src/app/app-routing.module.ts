@@ -11,6 +11,7 @@ import { NbaScheduleComponent } from './pages/nba-schedule/nba-schedule.componen
 import { EditConversationComponent } from './pages/edit-conversation/edit-conversation.component';
 import { AllConversationsComponent } from './pages/all-conversations/all-conversations.component';
 import { NbaGameDetailComponent } from './pages/nba-game-detail/nba-game-detail.component';
+import { PlayoffsBracketComponent } from './pages/playoffs-bracket/playoffs-bracket.component';
 
 
 const routes: Routes = [
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'conversaciones', component: AllConversationsComponent },
   { path: 'nba-schedule', component: NbaScheduleComponent },
   { path: 'nba/game/:id', component: NbaGameDetailComponent },
+  { path: 'playoffs-bracket', component: PlayoffsBracketComponent },
   { path: '**', redirectTo: '' },
 ];
 
