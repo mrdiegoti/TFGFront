@@ -16,32 +16,45 @@
 
 <h2>Conversaciones</h2>
 <table border="1" width="100%">
-  <tr><th>ID</th><th>Título</th><th>Comentarios</th><th>Acciones</th></tr>
+  <tr>
+    <th>ID</th>
+    <th>Título</th>
+    <th>Comentarios</th>
+    <th>Acciones</th>
+  </tr>
   <tr *ngFor="let conv of conversations">
-    <td>{{conv.id}}</td>
-    <td>{{conv.title}}</td>
-    <td>{{conv.comments_count}}</td>
+    <td>{{ conv.id }}</td>
+    <td>{{ conv.titulo }}</td> <!-- Usa 'titulo' (no 'title') si así se llama en tu modelo -->
+    <td>{{ conv.descripcion }}</td> <!-- Aquí va el nombre correcto del contador -->
     <td>
-      <button (click)="deleteConversation(conv.id, conv.comments_count)">Eliminar</button>
-      <!-- Editar deshabilitado si conv.comments_count > 0 -->
+      <button (click)="deleteConversation(conv.id, conv.comentarios_count)">Eliminar</button>
+      <!-- Editar si no tiene comentarios -->
+      <!-- <button *ngIf="conv.comentarios_count == 0" (click)="editarConversacion(conv.id)">Editar</button> -->
     </td>
   </tr>
 </table>
 
+
 <h2>Comentarios en Conversaciones</h2>
 <table border="1" width="100%">
-  <tr><th>ID</th><th>Usuario</th><th>Conversación</th><th>Contenido</th><th>Acciones</th></tr>
+  <tr>
+    <th>ID</th>
+    <th>Usuario</th>
+    <th>Conversación</th>
+    <th>Contenido</th>
+    <th>Acciones</th>
+  </tr>
   <tr *ngFor="let comment of comments">
-    <td>{{comment.id}}</td>
-    <td>{{comment.user?.name}}</td>
-    <td>{{comment.conversation?.title}}</td>
-    <td>{{comment.content}}</td>
+    <td>{{ comment.id }}</td>
+    <td>{{ comment.user?.name || 'ID: ' + comment.user_id }}</td>
+    <td>{{ comment.conversacion?.titulo || 'ID: ' + comment.conversacion_id }}</td>
+    <td>{{ comment.texto }}</td>
     <td>
       <button (click)="deleteComment(comment.id)">Eliminar</button>
-      <!-- Editar posible -->
     </td>
   </tr>
 </table>
+
 
 <h2>Comentarios en Partidos</h2>
 <table border="1" width="100%">
