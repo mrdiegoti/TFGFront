@@ -1,0 +1,58 @@
+<h1>Panel de Administrador</h1>
+
+<h2>Usuarios</h2>
+<table border="1" width="100%">
+  <tr><th>ID</th><th>Nombre</th><th>Email</th><th>Acciones</th></tr>
+  <tr *ngFor="let user of users">
+    <td>{{user.id}}</td>
+    <td>{{user.name}}</td>
+    <td>{{user.email}}</td>
+    <td>
+      <button (click)="deleteUser(user.id)">Eliminar</button>
+      <!-- Aquí podrías agregar editar -->
+    </td>
+  </tr>
+</table>
+
+<h2>Conversaciones</h2>
+<table border="1" width="100%">
+  <tr><th>ID</th><th>Título</th><th>Comentarios</th><th>Acciones</th></tr>
+  <tr *ngFor="let conv of conversations">
+    <td>{{conv.id}}</td>
+    <td>{{conv.title}}</td>
+    <td>{{conv.comments_count}}</td>
+    <td>
+      <button (click)="deleteConversation(conv.id, conv.comments_count)">Eliminar</button>
+      <!-- Editar deshabilitado si conv.comments_count > 0 -->
+    </td>
+  </tr>
+</table>
+
+<h2>Comentarios en Conversaciones</h2>
+<table border="1" width="100%">
+  <tr><th>ID</th><th>Usuario</th><th>Conversación</th><th>Contenido</th><th>Acciones</th></tr>
+  <tr *ngFor="let comment of comments">
+    <td>{{comment.id}}</td>
+    <td>{{comment.user?.name}}</td>
+    <td>{{comment.conversation?.title}}</td>
+    <td>{{comment.content}}</td>
+    <td>
+      <button (click)="deleteComment(comment.id)">Eliminar</button>
+      <!-- Editar posible -->
+    </td>
+  </tr>
+</table>
+
+<h2>Comentarios en Partidos</h2>
+<table border="1" width="100%">
+  <tr><th>ID</th><th>Usuario</th><th>Contenido</th><th>Acciones</th></tr>
+  <tr *ngFor="let gc of gameComments">
+    <td>{{gc.id}}</td>
+    <td>{{gc.user.name}}</td>
+    <td>{{gc.content}}</td>
+    <td>
+      <button (click)="deleteGameComment(gc.id)">Eliminar</button>
+      <!-- Editar posible -->
+    </td>
+  </tr>
+</table>

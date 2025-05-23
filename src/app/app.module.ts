@@ -21,7 +21,7 @@ import { NbaGameDetailComponent } from './pages/nba-game-detail/nba-game-detail.
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { PlayoffsBracketComponent } from './pages/playoffs-bracket/playoffs-bracket.component';
 import { NbaStandingsComponent } from './pages/nba-standings/nba-standings.component';
-import { NbaTeamDetailComponent } from './pages/nba-team-detail/nba-team-detail.component';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 // import { EditGameCommentComponent } from './pages/edit-game-comment/edit-game-comment.component';
 
 @NgModule({
@@ -41,8 +41,7 @@ import { NbaTeamDetailComponent } from './pages/nba-team-detail/nba-team-detail.
     NbaGameDetailComponent,
     PlayoffsBracketComponent,
     NbaStandingsComponent,
-    NbaTeamDetailComponent,
-    // EditGameCommentComponent,
+    AdminPanelComponent,
   ],
   imports: [
     BrowserModule,

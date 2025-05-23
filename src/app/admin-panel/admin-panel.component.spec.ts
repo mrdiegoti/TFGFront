@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NbaTeamDetailComponent } from './nba-team-detail.component';
+import { AdminPanelComponent } from './admin-panel.component';
 
-describe('NbaTeamDetailComponent', () => {
-  let component: NbaTeamDetailComponent;
-  let fixture: ComponentFixture<NbaTeamDetailComponent>;
+describe('AdminPanelComponent', () => {
+  let component: AdminPanelComponent;
+  let fixture: ComponentFixture<AdminPanelComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NbaTeamDetailComponent ]
+      declarations: [ AdminPanelComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NbaTeamDetailComponent);
+    fixture = TestBed.createComponent(AdminPanelComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

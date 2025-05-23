@@ -13,7 +13,7 @@ import { AllConversationsComponent } from './pages/all-conversations/all-convers
 import { NbaGameDetailComponent } from './pages/nba-game-detail/nba-game-detail.component';
 import { PlayoffsBracketComponent } from './pages/playoffs-bracket/playoffs-bracket.component';
 import { NbaStandingsComponent } from './pages/nba-standings/nba-standings.component';
-import { NbaTeamDetailComponent } from './pages/nba-team-detail/nba-team-detail.component';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -30,7 +30,7 @@ const routes: Routes = [
   { path: 'nba/game/:id', component: NbaGameDetailComponent },
   { path: 'playoffs-bracket', component: PlayoffsBracketComponent },
   { path: 'nba-standings', component: NbaStandingsComponent },
-  { path: 'nba/team/:id', component: NbaTeamDetailComponent },
+  { path: 'admin', component: AdminPanelComponent},
   { path: '**', redirectTo: '' },
 ];
 

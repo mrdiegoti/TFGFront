@@ -8,23 +8,20 @@ import { JwtResponse, User } from '../models/user.model';
   providedIn: 'root'
 })
 export class AuthService {
-  isLoggedIn(): boolean {
-    return this.isAuthenticated();
-  }
   private apiURL = 'http://localhost:8000/api';
   private tokenKey = 'token';
   user: any;
-  
+
   constructor(private http: HttpClient, private router: Router) {}
-  
+
   getAuthHeaders(): HttpHeaders {
-  const token = localStorage.getItem('token');
-  return new HttpHeaders({
-    'Authorization': `Bearer ${token}`,
-    'Content-Type': 'application/json'
-  });
+    const token = localStorage.getItem('token');
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
   }
-  
+
   register(user: User): Observable<JwtResponse> {
     return this.http.post<JwtResponse>(`${this.apiURL}/register`, user).pipe(
       tap(res => this.storeToken(res.token))
@@ -33,7 +30,10 @@ export class AuthService {
 
   login(user: User): Observable<JwtResponse> {
     return this.http.post<JwtResponse>(`${this.apiURL}/login`, user).pipe(
-      tap(res => this.storeToken(res.token))
+      tap(res => {
+        this.storeToken(res.token);
+        this.getUser(); // Verifica si es admin y redirige
+      })
     );
   }
 
@@ -71,20 +71,13 @@ export class AuthService {
     return !!this.getToken();
   }
 
-
-getUser(): void {
-  this.http.get(`${this.apiURL}/user`, {
+  getUser(): Observable<any> {
+  return this.http.get(`${this.apiURL}/user`, {
     headers: this.getAuthHeaders()
-  }).subscribe({
-    next: (res: any) => {
-      this.user = res;
-      console.log('Usuario autenticado:', res);
-    },
-    error: (err) => {
-      console.error('Error obteniendo usuario', err);
-    }
   });
 }
 
-
+  isLoggedIn(): boolean {
+    return this.isAuthenticated();
+  }
 }

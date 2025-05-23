@@ -1,29 +1,43 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/auth.service'; // Ajusta la ruta si es necesario
 import { Router } from '@angular/router';
 import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  templateUrl: './login.component.html'
 })
 export class LoginComponent {
-  user: User = { email: '', password: '' };
-  error: string = '';
-loginSuccess: any;
+  user: User = {
+    email: '',
+    password: ''
+  };
+error: any;
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
-  onSubmit() {
-    this.auth.login(this.user).subscribe({
-      next: (res) => {
-        console.log('Token recibido y guardado:', this.auth.getToken());
-        this.router.navigate(['/']);
+  onSubmit(): void {
+    this.authService.login(this.user).subscribe({
+      next: () => {
+        this.authService.getUser().subscribe({
+          next: (res: any) => {
+            if (res.role_id === 1) {
+              this.router.navigate(['/admin']);
+            } else {
+              this.router.navigate(['/home']);
+            }
+          },
+          error: (err: any) => {
+            console.error('Error al obtener usuario después del login', err);
+            this.router.navigate(['/home']);
+          }
+        });
       },
-      error: err => {
+      error: (err: any) => {
         console.error('Error al iniciar sesión', err);
-        this.error = 'Email o contraseña incorrectos';
       }
     });
   }
