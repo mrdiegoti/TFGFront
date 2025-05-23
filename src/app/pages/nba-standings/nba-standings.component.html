@@ -1,0 +1,19 @@
+<div class="conference">
+  <h2>Conferencia Este</h2>
+  <ul>
+    <li *ngFor="let team of east" (click)="goToTeam(team)" style="cursor:pointer;">
+      <img [src]="getTeamLogo(team.reference)" alt="{{ team.name }}" class="team-logo" />
+      <span>{{ team.market }} {{ team.name }} ({{ team.wins }}-{{ team.losses }})</span>
+    </li>
+  </ul>
+</div>
+
+<div class="conference">
+  <h2>Conferencia Oeste</h2>
+  <ul>
+    <li *ngFor="let team of west" (click)="goToTeam(team)" style="cursor:pointer;">
+      <img [src]="getTeamLogo(team.reference)" alt="{{ team.name }}" class="team-logo" />
+      <span>{{ team.market }} {{ team.name }} ({{ team.wins }}-{{ team.losses }})</span>
+    </li>
+  </ul>
+</div>

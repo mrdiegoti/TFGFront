@@ -1,0 +1,42 @@
+.standings {
+  display: flex;
+  justify-content: space-around;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.conference {
+  width: 45%;
+  background-color: #f3f3f3;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.conference h2 {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.conference ul {
+  list-style: none;
+  padding: 0;
+}
+
+.conference li {
+  padding: 0.5rem;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.conference li:hover {
+  background-color: #e0e0e0;
+}
+
+.team-logo {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}

@@ -12,7 +12,8 @@ import { EditConversationComponent } from './pages/edit-conversation/edit-conver
 import { AllConversationsComponent } from './pages/all-conversations/all-conversations.component';
 import { NbaGameDetailComponent } from './pages/nba-game-detail/nba-game-detail.component';
 import { PlayoffsBracketComponent } from './pages/playoffs-bracket/playoffs-bracket.component';
-
+import { NbaStandingsComponent } from './pages/nba-standings/nba-standings.component';
+import { NbaTeamDetailComponent } from './pages/nba-team-detail/nba-team-detail.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -26,13 +27,12 @@ const routes: Routes = [
   { path: 'nba-schedule', component: NbaScheduleComponent },
   { path: 'edit-conversation/:id', component: EditConversationComponent },
   { path: 'conversaciones', component: AllConversationsComponent },
-  { path: 'nba-schedule', component: NbaScheduleComponent },
   { path: 'nba/game/:id', component: NbaGameDetailComponent },
   { path: 'playoffs-bracket', component: PlayoffsBracketComponent },
+  { path: 'nba-standings', component: NbaStandingsComponent },
+  { path: 'nba/team/:id', component: NbaTeamDetailComponent },
   { path: '**', redirectTo: '' },
 ];
-
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

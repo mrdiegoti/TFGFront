@@ -20,6 +20,8 @@ import { AllConversationsComponent } from './pages/all-conversations/all-convers
 import { NbaGameDetailComponent } from './pages/nba-game-detail/nba-game-detail.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { PlayoffsBracketComponent } from './pages/playoffs-bracket/playoffs-bracket.component';
+import { NbaStandingsComponent } from './pages/nba-standings/nba-standings.component';
+import { NbaTeamDetailComponent } from './pages/nba-team-detail/nba-team-detail.component';
 // import { EditGameCommentComponent } from './pages/edit-game-comment/edit-game-comment.component';
 
 @NgModule({
@@ -38,6 +40,8 @@ import { PlayoffsBracketComponent } from './pages/playoffs-bracket/playoffs-brac
     AllConversationsComponent,
     NbaGameDetailComponent,
     PlayoffsBracketComponent,
+    NbaStandingsComponent,
+    NbaTeamDetailComponent,
     // EditGameCommentComponent,
   ],
   imports: [

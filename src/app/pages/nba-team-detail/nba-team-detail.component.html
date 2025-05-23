@@ -1,0 +1,27 @@
+<h2>Estadísticas por jugador</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>PPG</th>
+      <th>RPG</th>
+      <th>APG</th>
+      <th>SPG</th>
+      <th>BPG</th>
+      <th>% FG</th>
+      <th>% 3PT</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let player of players">
+      <td>{{ player.full_name }}</td>
+      <td>{{ player.points_per_game }}</td>
+      <td>{{ player.rebounds_per_game }}</td>
+      <td>{{ player.assists_per_game }}</td>
+      <td>{{ player.steals_per_game }}</td>
+      <td>{{ player.blocks_per_game }}</td>
+      <td>{{ player.field_goal_pct }}%</td>
+      <td>{{ player.three_point_pct }}%</td>
+    </tr>
+  </tbody>
+</table>
