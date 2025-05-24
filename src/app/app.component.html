@@ -11,18 +11,26 @@
     </div>
 
     <nav class="nav-links" [class.open]="menuAbierto">
-      <a routerLink="/nba-schedule" class="btn btn-primary">Ver Calendario NBA</a>
-      <a routerLink="/playoffs-bracket" (click)="cerrarMenu()" class="btn btn-secondary">Bracket Playoffs</a>
-      <a routerLink="/forum" (click)="cerrarMenu()">Conversaciones</a>
-      <a routerLink="/nueva-conversacion" (click)="cerrarMenu()">Nueva</a>
-      <a routerLink="/register" (click)="cerrarMenu()">Registrarse</a>
-      <a routerLink="/login" (click)="cerrarMenu()">Iniciar Sesión</a>
-      <a routerLink="/nba-standings" (click)="cerrarMenu()">Clasificación</a>
-
-      <button (click)="logout()">Salir</button>
+      <a routerLink="/nba-schedule" (click)="cerrarMenu()" class="btn btn-primary">Ver Calendario NBA</a>
+      
+      <!-- SI NO está logueado -->
+      <ng-container *ngIf="!isLoggedIn()">
+        <a routerLink="/register" (click)="cerrarMenu()">Registrarse</a>
+        <a routerLink="/login" (click)="cerrarMenu()">Iniciar Sesión</a>
+      </ng-container>
+      
+      <!-- SI está logueado -->
+      <ng-container *ngIf="isLoggedIn()">
+        <a routerLink="/forum" (click)="cerrarMenu()">Conversaciones</a>
+        <a routerLink="/nba-standings" (click)="cerrarMenu()">Clasificación</a>
+        <a routerLink="/playoffs-bracket" (click)="cerrarMenu()" class="btn btn-secondary">Bracket Playoffs</a>
+        <a routerLink="/nueva-conversacion" (click)="cerrarMenu()">Nueva</a>
+        <button (click)="logout()">Salir</button>
+      </ng-container>
     </nav>
   </div>
 </header>
+
 
 <main class="container" style="padding-top: 5rem;">
   <router-outlet></router-outlet>

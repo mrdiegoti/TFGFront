@@ -1,71 +1,174 @@
-<h1>Panel de Administrador</h1>
+<div class="container">
+  <!-- USUARIOS -->
+  <h2>Usuarios</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>
+          <button (click)="editUserData(user)">Editar</button>
+          <button type="button" (click)="deleteUser(user.id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
-<h2>Usuarios</h2>
-<table border="1" width="100%">
-  <tr><th>ID</th><th>Nombre</th><th>Email</th><th>Acciones</th></tr>
-  <tr *ngFor="let user of users">
-    <td>{{user.id}}</td>
-    <td>{{user.name}}</td>
-    <td>{{user.email}}</td>
-    <td>
-      <button (click)="deleteUser(user.id)">Eliminar</button>
-      <!-- Aquí podrías agregar editar -->
-    </td>
-  </tr>
-</table>
+  <div *ngIf="editUser">
+    <h3>Editar Usuario</h3>
+    <form (ngSubmit)="updateUser()">
+      <input
+        [(ngModel)]="editUser.name"
+        name="name"
+        placeholder="Nombre"
+        required
+      />
+      <input
+        [(ngModel)]="editUser.email"
+        name="email"
+        placeholder="Email"
+        required
+      />
+      <input
+        [(ngModel)]="editUser.password"
+        name="password"
+        placeholder="Nueva contraseña (opcional)"
+      />
+      <button type="submit">Guardar</button>
+      <button type="button" (click)="editUser = null">Cancelar</button>
+    </form>
+  </div>
 
-<h2>Conversaciones</h2>
-<table border="1" width="100%">
-  <tr>
-    <th>ID</th>
-    <th>Título</th>
-    <th>Comentarios</th>
-    <th>Acciones</th>
-  </tr>
-  <tr *ngFor="let conv of conversations">
-    <td>{{ conv.id }}</td>
-    <td>{{ conv.titulo }}</td> <!-- Usa 'titulo' (no 'title') si así se llama en tu modelo -->
-    <td>{{ conv.descripcion }}</td> <!-- Aquí va el nombre correcto del contador -->
-    <td>
-      <button (click)="deleteConversation(conv.id, conv.comentarios_count)">Eliminar</button>
-      <!-- Editar si no tiene comentarios -->
-      <!-- <button *ngIf="conv.comentarios_count == 0" (click)="editarConversacion(conv.id)">Editar</button> -->
-    </td>
-  </tr>
-</table>
+  <hr />
+
+  <!-- CONVERSACIONES -->
+  <h2>Conversaciones</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Título</th>
+        <th>Descripción</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let conversation of conversations">
+        <td>{{ conversation.titulo }}</td>
+        <td>{{ conversation.descripcion }}</td>
+        <td>
+          <button (click)="editConversationData(conversation)">Editar</button>
+          <button
+            type="button"
+            (click)="
+              deleteConversation(
+                conversation.id,
+                conversation.comentarios_count
+              )
+            "
+          >
+            Eliminar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="editConversation">
+  <h3>Editar Conversación</h3>
+  <form (ngSubmit)="updateConversation()" #convForm="ngForm">
+    <input [(ngModel)]="editConversation.titulo" name="titulo" placeholder="Título" required>
+    <input [(ngModel)]="editConversation.descripcion" name="editDescripcion" placeholder="Descripción" required>
+    <button type="submit">Guardar</button>
+    <button type="button" (click)="editConversation = null">Cancelar</button>
+  </form>
+</div>
 
 
-<h2>Comentarios en Conversaciones</h2>
-<table border="1" width="100%">
-  <tr>
-    <th>ID</th>
-    <th>Usuario</th>
-    <th>Conversación</th>
-    <th>Contenido</th>
-    <th>Acciones</th>
-  </tr>
-  <tr *ngFor="let comment of comments">
-    <td>{{ comment.id }}</td>
-    <td>{{ comment.user?.name || 'ID: ' + comment.user_id }}</td>
-    <td>{{ comment.conversacion?.titulo || 'ID: ' + comment.conversacion_id }}</td>
-    <td>{{ comment.texto }}</td>
-    <td>
-      <button (click)="deleteComment(comment.id)">Eliminar</button>
-    </td>
-  </tr>
-</table>
 
+  <hr />
 
-<h2>Comentarios en Partidos</h2>
-<table border="1" width="100%">
-  <tr><th>ID</th><th>Usuario</th><th>Contenido</th><th>Acciones</th></tr>
-  <tr *ngFor="let gc of gameComments">
-    <td>{{gc.id}}</td>
-    <td>{{gc.user.name}}</td>
-    <td>{{gc.content}}</td>
-    <td>
-      <button (click)="deleteGameComment(gc.id)">Eliminar</button>
-      <!-- Editar posible -->
-    </td>
-  </tr>
-</table>
+  <!-- COMENTARIOS EN CONVERSACIONES -->
+  <h2>Comentarios</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Usuario ID</th>
+        <th>Contenido</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let comment of comments">
+        <td>{{ comment.user_id }}</td>
+        <td>{{ comment.texto }}</td>
+        <td>
+          <button (click)="editCommentData(comment)">Editar</button>
+          <button type="button" (click)="deleteComment(comment.id)">
+            Eliminar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="editComment">
+    <h3>Editar Comentario</h3>
+    <form (ngSubmit)="updateComment()">
+      <input
+        [(ngModel)]="editComment.texto"
+        name="texto"
+        placeholder="Contenido"
+        required
+      />
+      <button type="submit">Guardar</button>
+      <button type="button" (click)="editComment = null">Cancelar</button>
+    </form>
+  </div>
+
+  <hr />
+
+  <!-- COMENTARIOS EN PARTIDOS -->
+  <h2>Comentarios de Partidos</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Usuario ID</th>
+        <th>Contenido</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let gameComment of gameComments">
+        <td>{{ gameComment.user_id }}</td>
+        <td>{{ gameComment.content }}</td>
+        <td>
+          <button (click)="editGameCommentData(gameComment)">Editar</button>
+          <button type="button" (click)="deleteGameComment(gameComment.id)">
+            Eliminar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="editGameComment">
+    <h3>Editar Comentario de Partido</h3>
+    <form (ngSubmit)="updateGameComment()">
+      <input
+        [(ngModel)]="editGameComment.content"
+        name="gameContent"
+        placeholder="Contenido"
+        required
+      />
+      <button type="submit">Guardar</button>
+      <button type="button" (click)="editGameComment = null">Cancelar</button>
+    </form>
+  </div>
+</div>

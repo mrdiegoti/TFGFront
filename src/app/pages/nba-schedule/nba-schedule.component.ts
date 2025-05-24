@@ -79,4 +79,9 @@ export class NbaScheduleComponent implements OnInit {
   this.router.navigate(['/nba/game', gameId]);
 }
 
+isLoggedIn(): boolean {
+  return !!localStorage.getItem('token');
+}
+
+
 }

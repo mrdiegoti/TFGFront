@@ -2,9 +2,11 @@
   <div class="forum-header">
     <h2 class="forum-title">Últimas Conversaciones</h2>
     <div class="forum-actions">
-      <div style="display: flex; justify-content: space-between; width: 100%;">
-        <a routerLink="/create-conversation" class="btn btn-create">📝 Nueva Conversación</a>
-        <a routerLink="/conversaciones" class="btn btn-create">➕Ver todas</a>
+      <div style="display: flex; justify-content: space-between; width: 100%">
+        <a routerLink="/create-conversation" class="btn btn-create"
+          >📝 Nueva Conversación</a
+        >
+        <a routerLink="/conversaciones" class="btn btn-create">➕ Ver todas</a>
       </div>
     </div>
   </div>
@@ -16,9 +18,13 @@
       (click)="verConversacion(conv.id)"
     >
       <h3>{{ conv.titulo }}</h3>
-      <p>{{ conv.descripcion | slice:0:120 }}</p>
+      <p>
+        {{ conv.descripcion | slice : 0 : 120
+        }}{{ conv.descripcion.length > 120 ? "..." : "" }}
+      </p>
 
-      <div class="btn-group mt-2">
+      <!-- Mostrar botones solo si es el dueño -->
+      <div class="btn-group mt-2" *ngIf="esPropietario(conv)">
         <button
           class="btn btn-sm btn-warning me-2"
           (click)="editarConversacion(conv.id); $event.stopPropagation()"
@@ -38,6 +44,8 @@
   <div class="bottom-actions">
     <button class="action-btn">🔍<br />Buscar</button>
     <button class="action-btn">💬<br />Foro</button>
-    <button class="action-btn" (click)="crearConversacion()">📝<br />Nuevo</button>
+    <button class="action-btn" (click)="crearConversacion()">
+      📝<br />Nuevo
+    </button>
   </div>
 </div>

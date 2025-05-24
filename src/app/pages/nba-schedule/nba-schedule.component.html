@@ -30,6 +30,6 @@
       Estado: {{ partido.status }} | Hora: {{ partido.scheduled | date:'shortTime' }}
     </div>
 
-    <button class="btn-detalles" (click)="verDetalles(partido.id)">Ver detalles</button>
+  <button *ngIf="isLoggedIn()" (click)="verDetalles(partido)">Ver Detalles</button>
   </div>
 </div>

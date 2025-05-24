@@ -58,10 +58,11 @@ export class AdminService {
   }
 
   updateConversation(id: number, data: any) {
-    return this.http.put(`${this.baseUrl}/conversations/${id}`, data, {
-      headers: this.getAuthHeaders(),
-    });
-  }
+  return this.http.put(`${this.baseUrl}/conversations/${id}`, data, {
+    headers: this.getAuthHeaders()
+  });
+}
+
 
   deleteConversation(id: number) {
     return this.http.delete(`${this.baseUrl}/conversations/${id}`, {

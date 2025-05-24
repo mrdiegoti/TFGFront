@@ -44,7 +44,12 @@ export class AppComponent implements OnInit {
 
   logout() {
     localStorage.removeItem("token")
-    window.location.href = "/login"
+    window.location.href = "/"
     this.cerrarMenu()
   }
+
+  isLoggedIn(): boolean {
+  return !!localStorage.getItem('token'); // o usa un AuthService si lo tienes
+}
+
 }

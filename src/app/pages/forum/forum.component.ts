@@ -23,7 +23,9 @@ export class ForumComponent implements OnInit {
     this.forum.getConversations().subscribe({
       next: (data) => {
         // Mostrar solo las 3 últimas conversaciones
-        this.conversaciones = data.slice(-3).reverse();
+        console.log('Conversaciones cargadas:', data);
+        this.conversaciones = data.slice(-4).reverse();
+        console.log(this.conversaciones); // <-- AQUÍ
       },
       error: (err) => {
         console.error('Error cargando conversaciones', err);
@@ -64,5 +66,12 @@ export class ForumComponent implements OnInit {
   verTodas(): void {
   this.router.navigate(['/conversaciones']);
 }
+
+esPropietario(conv: any): boolean {
+  const userId = this.auth.getCurrentUserId();
+  return this.auth.isLoggedIn() && userId === conv.user_id;
+}
+
+
 
 }

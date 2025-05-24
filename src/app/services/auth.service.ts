@@ -8,6 +8,7 @@ import { JwtResponse, User } from '../models/user.model';
   providedIn: 'root'
 })
 export class AuthService {
+
   private apiURL = 'http://localhost:8000/api';
   private tokenKey = 'token';
   user: any;
@@ -77,7 +78,16 @@ export class AuthService {
   });
 }
 
-  isLoggedIn(): boolean {
-    return this.isAuthenticated();
-  }
+  getCurrentUserId(): number | null {
+  const id = localStorage.getItem('user_id');
+  return id ? parseInt(id, 10) : null;
+}
+
+isLoggedIn(): boolean {
+  return !!localStorage.getItem('token');
+}
+
+
+
+
 }
