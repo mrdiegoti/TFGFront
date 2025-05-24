@@ -14,7 +14,7 @@ export class NbaStandingsComponent implements OnInit {
   constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
-    this.http.get<any[]>('http://hoopsfever.onrender.com/api/nba/standings').subscribe(data => {
+    this.http.get<any[]>('https://hoopsfever.onrender.com/api/nba/standings').subscribe(data => {
     // this.http.get<any[]>('http://localhost:8000/api/nba/standings').subscribe(data => {
       const eastConf = data.find(conf => conf.alias === 'EASTERN');
       const westConf = data.find(conf => conf.alias === 'WESTERN');

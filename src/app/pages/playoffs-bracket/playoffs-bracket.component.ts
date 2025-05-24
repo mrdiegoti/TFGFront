@@ -29,7 +29,7 @@ export class PlayoffsBracketComponent implements OnInit {
   }
 
   loadPlayoffsBracket(): void {
-  const url = 'http://hoopsfever.onrender.com/api/nba/playoffs';
+  const url = 'https://hoopsfever.onrender.com/api/nba/playoffs';
   // const url = 'http://localhost:8000/api/nba/playoffs';
   const token = localStorage.getItem('token'); // Obtener el token del localStorage
 

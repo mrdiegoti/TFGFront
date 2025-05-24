@@ -38,7 +38,7 @@ export class NbaGameDetailComponent implements OnInit {
     this.gameId = this.route.snapshot.paramMap.get('id');
     if (this.gameId) {
       this.http
-        .get<any>(`http://hoopsfever.onrender.com/api/nba/game/${this.gameId}`)
+        .get<any>(`https://hoopsfever.onrender.com/api/nba/game/${this.gameId}`)
         // .get<any>(`http://localhost:8000/api/nba/game/${this.gameId}`)
         .subscribe({
           next: (data) => {

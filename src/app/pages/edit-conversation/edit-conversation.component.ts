@@ -13,7 +13,7 @@ export class EditConversationComponent implements OnInit {
     titulo: '',
     descripcion: ''
   };
-  apiUrl = 'http://hoopsfever.onrender.com/api';
+  apiUrl = 'https://hoopsfever.onrender.com/api';
   // apiUrl = 'http://localhost:8000/api';
 loading: any;
 
