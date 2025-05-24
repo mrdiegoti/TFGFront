@@ -21,7 +21,8 @@ export class NbaScheduleComponent implements OnInit {
 
   obtenerPartidos(): void {
     this.http
-      .get<any>(`http://localhost:8000/api/nba/schedule/${this.fecha}`)
+      .get<any>(`http://hoopsfever.onrender.com/api/nba/schedule/${this.fecha}`)
+      // .get<any>(`http://localhost:8000/api/nba/schedule/${this.fecha}`)
       .subscribe({
         next: (data) => {
           this.partidos = data.games || [];

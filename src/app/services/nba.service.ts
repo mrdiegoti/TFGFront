@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class NbaService {
-  private baseUrl = 'http://localhost:8000/api/nba';
+  private baseUrl = 'http://hoopsfever.onrender.com/api/nba';
+  // private baseUrl = 'http://localhost:8000/api/nba';
 
   constructor(private http: HttpClient) {}
 
