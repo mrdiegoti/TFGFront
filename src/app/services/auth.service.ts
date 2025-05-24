@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { JwtResponse, User } from '../models/user.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { JwtResponse, User } from '../models/user.model';
 export class AuthService {
 
   // private apiURL = 'http://localhost:8000/api';
-  private apiURL = 'http://hoopsfever.onrender.com/api';
+  apiURL = environment.apiUrl;
   private tokenKey = 'token';
   user: any;
 
