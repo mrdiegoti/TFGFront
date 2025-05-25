@@ -13,8 +13,8 @@ export class EditConversationComponent implements OnInit {
     titulo: '',
     descripcion: ''
   };
-  apiUrl = 'https://hoopsfever.up.railway.app/api';
-  // apiUrl = 'http://localhost:8000/api';
+  // apiUrl = 'https://hoopsfever.up.railway.app/api';
+  apiUrl = 'http://localhost:8000/api';
 loading: any;
 
   constructor(

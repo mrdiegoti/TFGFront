@@ -1,60 +1,288 @@
-<header class="main-header" [class.expanded]="menuAbierto">
-  <div class="container header-content">
-    <div class="logo">
-      <a routerLink="/">Hoops Fever</a>
+<div class="page-wrapper" [class.page-loaded]="pageLoaded">
+  <!-- Loading Screen -->
+  <div class="loading-screen" [class.fade-out]="pageLoaded">
+    <div class="loading-content">
+      <div class="nba-logo-loader">
+        <div class="basketball">
+          <div class="basketball-lines">
+            <div class="line vertical"></div>
+            <div class="line horizontal"></div>
+            <div class="line curved"></div>
+          </div>
+        </div>
+      </div>
+      <h2 class="loading-text">NBA Hoops</h2>
+    </div>
+  </div>
+
+  <!-- Mobile Navigation Overlay -->
+  <div class="mobile-nav-overlay" [class.active]="menuAbierto" (click)="cerrarMenu()"></div>
+
+  <!-- Header -->
+  <header class="main-header" [class.scrolled]="isScrolled">
+    <div class="header-container">
+      <!-- Logo -->
+      <div class="logo-section">
+        <a routerLink="/" class="logo-link" (click)="cerrarMenu()">
+          <div class="nba-logo">
+            <svg viewBox="0 0 100 100" class="nba-logo-svg">
+              <defs>
+                <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#1d428a"/>
+                  <stop offset="50%" style="stop-color:#c8102e"/>
+                  <stop offset="100%" style="stop-color:#1d428a"/>
+                </linearGradient>
+              </defs>
+              <circle cx="50" cy="50" r="45" fill="url(#logoGradient)" stroke="#fdb927" stroke-width="3"/>
+              <rect x="20" y="20" width="25" height="60" fill="#ffffff" rx="2"/>
+              <rect x="55" y="20" width="25" height="60" fill="#ffffff" rx="2"/>
+              <circle cx="32.5" cy="35" r="8" fill="#1d428a"/>
+              <circle cx="67.5" cy="35" r="8" fill="#c8102e"/>
+              <rect x="25" y="50" width="15" height="25" fill="#1d428a" rx="2"/>
+              <rect x="60" y="50" width="15" height="25" fill="#c8102e" rx="2"/>
+            </svg>
+          </div>
+          <div class="logo-text">
+            <span class="logo-main">NBA</span>
+            <span class="logo-sub">Hoops</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <nav class="desktop-nav">
+        <div class="nav-group primary-nav">
+          <a routerLink="/nba-schedule" class="nav-item featured">
+            <span class="nav-icon">🏀</span>
+            <span class="nav-text">Calendario</span>
+          </a>
+          
+          <ng-container *ngIf="isLoggedIn()">
+            <a routerLink="/forum" class="nav-item">
+              <span class="nav-icon">💬</span>
+              <span class="nav-text">Foro</span>
+            </a>
+            <a routerLink="/nba-standings" class="nav-item">
+              <span class="nav-icon">🏆</span>
+              <span class="nav-text">Clasificación</span>
+            </a>
+          </ng-container>
+        </div>
+
+        <div class="nav-group auth-nav">
+          <ng-container *ngIf="!isLoggedIn()">
+            <a routerLink="/register" class="nav-item auth-btn register">
+              <span class="nav-icon">👤</span>
+              <span class="nav-text">Registro</span>
+            </a>
+            <a routerLink="/login" class="nav-item auth-btn login">
+              <span class="nav-icon">🔑</span>
+              <span class="nav-text">Login</span>
+            </a>
+          </ng-container>
+          
+          <ng-container *ngIf="isLoggedIn()">
+            <a routerLink="/nueva-conversacion" class="nav-item create-btn">
+              <span class="nav-icon">➕</span>
+              <span class="nav-text">Nueva</span>
+            </a>
+            <div class="user-menu-wrapper">
+              <button class="user-avatar" (click)="toggleUserMenu()">
+                <span class="avatar-icon">👤</span>
+              </button>
+              <div class="user-dropdown" [class.open]="userMenuOpen">
+                <div class="dropdown-divider"></div>
+                <button (click)="logout()" class="dropdown-item logout">
+                  <span class="dropdown-icon">🚪</span>
+                  <span>Cerrar Sesión</span>
+                </button>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </nav>
+
+      <!-- Mobile Menu Toggle -->
+      <button class="mobile-menu-toggle" (click)="toggleMenu()" [class.active]="menuAbierto">
+        <div class="hamburger-box">
+          <span class="hamburger-line" style="background: #fff;"></span>
+          <span class="hamburger-line" style="background: #fff;"></span>
+          <span class="hamburger-line" style="background: #fff;"></span>
+        </div>
+      </button>
     </div>
 
-    <div class="menu-toggle" (click)="toggleMenu()">
-      <div [class.bar1]="menuAbierto"></div>
-      <div [class.bar2]="menuAbierto"></div>
-      <div [class.bar3]="menuAbierto"></div>
-    </div>
+    <!-- Mobile Navigation Dropdown -->
+    <nav class="mobile-nav" [class.active]="menuAbierto">
+      <div class="mobile-nav-content">
+        <div class="mobile-nav-section">
+          <h3 class="mobile-section-title">🏀 NBA</h3>
+          <a routerLink="/nba-schedule" (click)="cerrarMenu()" class="mobile-nav-item featured">
+            <span class="mobile-nav-icon">🏀</span>
+            <span class="mobile-nav-text">Calendario NBA</span>
+          </a>
+          
+          <ng-container *ngIf="isLoggedIn()">
+            <a routerLink="/nba-standings" (click)="cerrarMenu()" class="mobile-nav-item">
+              <span class="mobile-nav-icon">🏆</span>
+              <span class="mobile-nav-text">Clasificación</span>
+            </a>
+          </ng-container>
+        </div>
 
-    <nav class="nav-links" [class.open]="menuAbierto">
-      <a routerLink="/nba-schedule" (click)="cerrarMenu()" class="btn btn-primary">Ver Calendario NBA</a>
-      
-      <!-- SI NO está logueado -->
-      <ng-container *ngIf="!isLoggedIn()">
-        <a routerLink="/register" (click)="cerrarMenu()">Registrarse</a>
-        <a routerLink="/login" (click)="cerrarMenu()">Iniciar Sesión</a>
-      </ng-container>
-      
-      <!-- SI está logueado -->
-      <ng-container *ngIf="isLoggedIn()">
-        <a routerLink="/forum" (click)="cerrarMenu()">Conversaciones</a>
-        <a routerLink="/nba-standings" (click)="cerrarMenu()">Clasificación</a>
-        <a routerLink="/playoffs-bracket" (click)="cerrarMenu()" class="btn btn-secondary">Bracket Playoffs</a>
-        <a routerLink="/nueva-conversacion" (click)="cerrarMenu()">Nueva</a>
-        <button (click)="logout()">Salir</button>
-      </ng-container>
+        <ng-container *ngIf="isLoggedIn()">
+          <div class="mobile-nav-section">
+            <h3 class="mobile-section-title">💬 Comunidad</h3>
+            <a routerLink="/forum" (click)="cerrarMenu()" class="mobile-nav-item">
+              <span class="mobile-nav-icon">💬</span>
+              <span class="mobile-nav-text">Foro</span>
+            </a>
+            <a routerLink="/nueva-conversacion" (click)="cerrarMenu()" class="mobile-nav-item create">
+              <span class="mobile-nav-icon">➕</span>
+              <span class="mobile-nav-text">Nueva Conversación</span>
+            </a>
+          </div>
+
+          <div class="mobile-nav-section">
+            <h3 class="mobile-section-title">👤 Mi Cuenta</h3>
+            <a routerLink="/perfil" (click)="cerrarMenu()" class="mobile-nav-item">
+              <span class="mobile-nav-icon">👤</span>
+              <span class="mobile-nav-text">Mi Perfil</span>
+            </a>
+            <button (click)="logout()" class="mobile-nav-item logout">
+              <span class="mobile-nav-icon">🚪</span>
+              <span class="mobile-nav-text">Cerrar Sesión</span>
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="!isLoggedIn()">
+          <div class="mobile-nav-section">
+            <h3 class="mobile-section-title">🔐 Acceso</h3>
+            <a routerLink="/login" (click)="cerrarMenu()" class="mobile-nav-item login">
+              <span class="mobile-nav-icon">🔑</span>
+              <span class="mobile-nav-text">Iniciar Sesión</span>
+            </a>
+            <a routerLink="/register" (click)="cerrarMenu()" class="mobile-nav-item register">
+              <span class="mobile-nav-icon">👤</span>
+              <span class="mobile-nav-text">Registrarse</span>
+            </a>
+          </div>
+        </ng-container>
+      </div>
     </nav>
-  </div>
-</header>
+  </header>
 
+  <!-- Main Content -->
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
 
-<main class="container" style="padding-top: 5rem;">
-  <router-outlet></router-outlet>
-</main>
-<footer class="main-footer">
-  <div class="footer-content container">
-    <div class="footer-section">
-      <h4>Sobre el Foro</h4>
-      <p>Un espacio para debatir, compartir y opinar sobre todo lo relacionado con la NBA. Hecho con pasión por el baloncesto.</p>
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="footer-content">
+      <div class="footer-section brand-section">
+        <div class="footer-logo">
+          <div class="footer-nba-logo">
+            <svg viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="40" fill="url(#logoGradient)" stroke="#fdb927" stroke-width="2"/>
+              <rect x="25" y="25" width="20" height="50" fill="#ffffff" rx="2"/>
+              <rect x="55" y="25" width="20" height="50" fill="#ffffff" rx="2"/>
+            </svg>
+          </div>
+          <div class="footer-brand-text">
+            <h3>NBA Hoops</h3>
+            <p>Tu pasión por el baloncesto</p>
+          </div>
+        </div>
+        <p class="footer-description">
+          La plataforma definitiva para los fanáticos de la NBA. Únete a nuestra comunidad y vive la pasión del baloncesto como nunca antes.
+        </p>
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="Facebook">📘</a>
+          <a href="#" class="social-link" aria-label="Twitter">🐦</a>
+          <a href="#" class="social-link" aria-label="Instagram">📷</a>
+          <a href="#" class="social-link" aria-label="YouTube">📺</a>
+        </div>
+      </div>
+
+      <div class="footer-section links-section">
+        <h4>🏀 NBA</h4>
+        <ul class="footer-links">
+          <li><a routerLink="/nba-schedule">Calendario de Partidos</a></li>
+            <ng-container *ngIf="isLoggedIn()">
+            <li><a routerLink="/nba-standings">Clasificación</a></li>
+            </ng-container>
+          <li><a routerLink="/playoffs-bracket">Bracket Playoffs</a></li>
+          <li><a href="#">Estadísticas</a></li>
+          <li><a href="#">Equipos</a></li>
+          <li><a href="#">Jugadores</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section links-section">
+        <h4>💬 Comunidad</h4>
+        <ul class="footer-links">
+          <ng-container *ngIf="isLoggedIn()">
+          <li><a routerLink="/forum">Foro de Debates</a></li>
+          </ng-container>
+          <ng-container *ngIf="isLoggedIn()">
+          <li><a routerLink="/nueva-conversacion">Nueva Conversacion</a></li>
+          </ng-container>
+          <li><a href="#">Reglas del Foro</a></li>
+          <li><a href="#">Moderadores</a></li>
+          <li><a href="#">Eventos</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section contact-section">
+        <h4>📞 Contacto</h4>
+        <div class="contact-info">
+          <div class="contact-item">
+            <span class="contact-icon">📧</span>
+            <div class="contact-details">
+              <span class="contact-label">Email</span>
+              <span class="contact-value">info@hoopsfever.com</span>
+            </div>
+          </div>
+          <div class="contact-item">
+            <span class="contact-icon">📱</span>
+            <div class="contact-details">
+              <span class="contact-label">Teléfono</span>
+              <span class="contact-value">+1 (555) NBA-TALK</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="newsletter">
+          <h5>📬 Newsletter</h5>
+          <p>Recibe las últimas noticias de la NBA</p>
+          <div class="newsletter-form">
+            <input type="email" placeholder="tu@email.com" class="newsletter-input">
+            <button class="newsletter-btn">📨</button>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="footer-section">
-      <h4>Enlaces</h4>
-      <ul>
-        <li><a routerLink="/forum">Conversaciones</a></li>
-        <li><a routerLink="/nueva-conversacion">Nueva Conversación</a></li>
-        <li><a routerLink="/perfil">Mi Perfil</a></li>
-      </ul>
+    <div class="footer-bottom">
+      <div class="footer-bottom-content">
+        <div class="copyright">
+          <p>&copy; 2025 NBA Hoops. Todos los derechos reservados.</p>
+          <p>Hecho con ❤️ para los fanáticos de la NBA</p>
+        </div>
+        <div class="footer-bottom-links">
+          <a href="#">Política de Privacidad</a>
+          <a href="#">Términos de Uso</a>
+          <a href="#">Cookies</a>
+          <a href="#">Ayuda</a>
+        </div>
+      </div>
     </div>
+  </footer>
 
-    <div class="footer-section">
-      <h4>Contacto</h4>
-      <p>Email: contacto&#64;foronba.com</p>
-      <p>© 2025 ForoNBA</p>
-    </div>
-  </div>
-</footer>
+  <!-- Scroll to Top -->
+  <button class="scroll-to-top" [class.visible]="showScrollTop" (click)="scrollToTop()">
+    ⬆️
+  </button>
+</div>
