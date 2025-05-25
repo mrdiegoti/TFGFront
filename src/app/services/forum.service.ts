@@ -13,7 +13,7 @@ export class ForumService {
     throw new Error('Method not implemented.');
   }
   // private api = 'http://localhost:8000/api'; // URL de tu backend
-  private api = 'https://hoopsfever.onrender.com/api'; // URL de tu backend
+  private api = 'https://hoopsfever.up.railway.app/api'; // URL de tu backend
 
   constructor(private http: HttpClient) {}
 

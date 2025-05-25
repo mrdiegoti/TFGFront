@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AdminService {
-  private baseUrl = 'https://hoopsfever.onrender.com/api/admin';
+  private baseUrl = 'https://hoopsfever.up.railway.app/api/admin';
   // private baseUrl = 'http://localhost:8000/api/admin';
 
   constructor(private http: HttpClient) {}

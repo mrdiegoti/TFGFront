@@ -8,7 +8,7 @@ import { GameComment } from '../models/game-comment.model';
 })
 export class GameCommentService {
   // private apiUrl = 'http://localhost:8000/api';
-  private apiUrl = 'https://hoopsfever.onrender.com/api';
+  private apiUrl = 'https://hoopsfever.up.railway.app/api';
 
   constructor(private http: HttpClient) {}
 
