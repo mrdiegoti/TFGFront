@@ -6,10 +6,9 @@ import { JwtResponse, User } from '../models/user.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
   // private apiURL = 'http://localhost:8000/api';
   apiURL = environment.apiUrl;
   private tokenKey = 'token';
@@ -20,22 +19,27 @@ export class AuthService {
   getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('token');
     return new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
     });
   }
 
   register(user: User): Observable<JwtResponse> {
-    return this.http.post<JwtResponse>(`${this.apiURL}/register`, user).pipe(
-      tap(res => this.storeToken(res.token))
-    );
+    return this.http
+      .post<JwtResponse>(`${this.apiURL}/register`, user)
+      .pipe(tap((res) => this.storeToken(res.token)));
   }
 
   login(user: User): Observable<JwtResponse> {
     return this.http.post<JwtResponse>(`${this.apiURL}/login`, user).pipe(
-      tap(res => {
-        this.storeToken(res.token);
+      tap((res) => {
+        const jwtRes = res as JwtResponse;
+        this.storeToken(jwtRes.token);
         this.getUser(); // Verifica si es admin y redirige
+        const payload = JSON.parse(atob(jwtRes.token.split('.')[1]));
+        if (payload?.user?.id) {
+          localStorage.setItem('user_id', payload.user.id);
+        }
       })
     );
   }
@@ -50,11 +54,11 @@ export class AuthService {
         this.removeToken();
         this.router.navigate(['/login']);
       },
-      error: err => {
+      error: (err) => {
         console.error('Error al cerrar sesión', err);
         this.removeToken(); // Limpiar aunque falle
         this.router.navigate(['/login']);
-      }
+      },
     });
   }
 
@@ -75,21 +79,17 @@ export class AuthService {
   }
 
   getUser(): Observable<any> {
-  return this.http.get(`${this.apiURL}/user`, {
-    headers: this.getAuthHeaders()
-  });
-}
+    return this.http.get(`${this.apiURL}/user`, {
+      headers: this.getAuthHeaders(),
+    });
+  }
 
   getCurrentUserId(): number | null {
-  const id = localStorage.getItem('user_id');
-  return id ? parseInt(id, 10) : null;
-}
+    const id = localStorage.getItem('user_id');
+    return id ? parseInt(id, 10) : null;
+  }
 
-isLoggedIn(): boolean {
-  return !!localStorage.getItem('token');
-}
-
-
-
-
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
+  }
 }

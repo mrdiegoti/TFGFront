@@ -1,15 +1,16 @@
-<p>all-conversations works!</p>
 <div class="all-conversations-container">
   <h2 class="title">Todas las conversaciones</h2>
 
   <div class="cards-wrapper">
-    <div
-      class="conversation-card"
-      *ngFor="let conv of conversaciones"
-      (click)="verConversacion(conv.id)"
-    >
-      <h4>{{ conv.titulo }}</h4>
+    <div class="conversation-card" *ngFor="let conv of conversaciones">
+      <h4 (click)="verConversacion(conv.id)">{{ conv.titulo }}</h4>
       <p>{{ conv.descripcion }}</p>
+
+      <!-- Mostrar siempre los botones -->
+      <div class="card-actions">
+        <button (click)="editarConversacion(conv.id)">Editar</button>
+        <button (click)="eliminarConversacion(conv.id)">Eliminar</button>
+      </div>
     </div>
   </div>
 </div>

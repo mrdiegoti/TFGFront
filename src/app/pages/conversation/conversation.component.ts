@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ForumService } from '../../services/forum.service';
 
 @Component({
@@ -12,9 +12,12 @@ export class ConversationComponent implements OnInit {
   comentarios: any[] = [];
   nuevoComentario = '';
   usuarioActualId: number = 0;
-auth: any;
 
-  constructor(private route: ActivatedRoute, private forumService: ForumService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private forumService: ForumService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.obtenerUsuarioActual();
@@ -26,6 +29,7 @@ auth: any;
     if (token) {
       const payload = JSON.parse(atob(token.split('.')[1]));
       this.usuarioActualId = payload?.user?.id ?? 0;
+      console.log('Usuario actual ID:', this.usuarioActualId);
     }
   }
 
@@ -35,6 +39,8 @@ auth: any;
       next: (data) => {
         this.conversacion = data;
         this.comentarios = data.comentarios || [];
+        console.log('Conversación:', this.conversacion);
+        console.log('Comentarios:', this.comentarios);
       },
       error: (err) => console.error('Error cargando conversación', err),
     });
@@ -45,7 +51,7 @@ auth: any;
     const comentario = { texto: this.nuevoComentario };
 
     this.forumService.createComment(id, comentario).subscribe({
-      next: (nuevo) => {
+      next: () => {
         this.nuevoComentario = '';
         this.cargarConversacion();
       },
@@ -88,5 +94,29 @@ auth: any;
         },
       });
     }
+  }
+
+  eliminarConversacion(id: number): void {
+    if (!confirm('¿Estás seguro de que deseas eliminar esta conversación?')) return;
+
+    this.forumService.deleteConversation(id).subscribe({
+      next: () => {
+        alert('Conversación eliminada');
+        this.router.navigate(['/conversaciones']);
+      },
+      error: (err) => {
+        console.error('Error eliminando conversación:', err);
+        alert('No se pudo eliminar la conversación');
+      },
+    });
+  }
+
+  // Funciones de control de visibilidad
+  esAutorComentario(comentario: any): boolean {
+    return comentario.user_id == this.usuarioActualId;
+  }
+
+  esAutorConversacion(): boolean {
+    return this.conversacion?.user_id == this.usuarioActualId;
   }
 }

@@ -24,7 +24,7 @@
       </p>
 
       <!-- Mostrar botones solo si es el dueño -->
-      <div class="btn-group mt-2" *ngIf="esPropietario(conv)">
+      <div class="btn-group mt-2">
         <button
           class="btn btn-sm btn-warning me-2"
           (click)="editarConversacion(conv.id); $event.stopPropagation()"
