@@ -1,1 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
+/* src/styles.css */
+:root {
+  /* NBA Official Colors */
+  --nba-blue: #1d428a;
+  --nba-red: #c8102e;
+  --nba-gold: #fdb927;
+  --nba-silver: #c4ced4;
+  --nba-dark-blue: #17346b;
+  
+  /* Gradients */
+  --gradient-nba-primary: linear-gradient(135deg, var(--nba-blue) 0%, var(--nba-dark-blue) 100%);
+  
+  /* Spacing */
+  --radius-xl: 1rem;
+  --radius-lg: 0.75rem;
+  
+  /* Shadows */
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-nba: 0 8px 32px rgba(29, 66, 138, 0.2);
+  
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s ease;
+  
+  /* Neutral Colors */
+  --gray-50: #f9fafb;
+  --gray-300: #d1d5db;
+}

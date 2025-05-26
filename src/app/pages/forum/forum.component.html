@@ -2,50 +2,67 @@
   <div class="forum-header">
     <h2 class="forum-title">Últimas Conversaciones</h2>
     <div class="forum-actions">
-      <div style="display: flex; justify-content: space-between; width: 100%">
-        <a routerLink="/create-conversation" class="btn btn-create"
-          >📝 Nueva Conversación</a
-        >
-        <a routerLink="/conversaciones" class="btn btn-create">➕ Ver todas</a>
+      <div class="action-buttons">
+        <button class="btn btn-create" (click)="crearConversacion()">
+          <span class="icon">📝</span>
+          <span class="text">Nueva Conversación</span>
+        </button>
+        <button class="btn btn-secondary" (click)="router.navigate(['/conversaciones'])">
+          <i class="icon">➕</i> Ver todas
+        </button>
       </div>
     </div>
   </div>
 
-  <div class="cards-wrapper">
-    <div
-      *ngFor="let conv of conversaciones"
+  <div *ngIf="conversaciones.length > 0; else noConversations" class="cards-wrapper">
+    <div 
+      *ngFor="let conv of conversaciones" 
       class="conversation-card"
       (click)="verConversacion(conv.id)"
     >
-      <h3>{{ conv.titulo }}</h3>
-      <p>
-        {{ conv.descripcion | slice : 0 : 120
-        }}{{ conv.descripcion.length > 120 ? "..." : "" }}
-      </p>
+      <div class="card-content">
+        <h3 class="card-title">{{ conv.titulo }}</h3>
+        <p class="card-description">
+          {{ conv.descripcion | slice:0:120 }}
+          {{ conv.descripcion.length > 120 ? '...' : '' }}
+        </p>
+      </div>
 
-      <!-- Mostrar botones solo si es el dueño -->
-      <div class="btn-group mt-2">
-        <button
-          class="btn btn-sm btn-warning me-2"
+      <div *ngIf="auth.isLoggedIn()" class="card-actions">
+        <button 
+          class="btn btn-warning" 
           (click)="editarConversacion(conv.id); $event.stopPropagation()"
         >
-          ✏️ Editar
+          <i class="icon">✏️</i> Editar
         </button>
-        <button
-          class="btn btn-sm btn-danger"
+        <button 
+          class="btn btn-danger" 
           (click)="eliminarConversacion(conv.id); $event.stopPropagation()"
         >
-          🗑️ Eliminar
+          <i class="icon">🗑️</i> Eliminar
         </button>
       </div>
     </div>
   </div>
 
+  <ng-template #noConversations>
+    <div class="empty-state">
+      <p>No hay conversaciones disponibles</p>
+    </div>
+  </ng-template>
+
   <div class="bottom-actions">
-    <button class="action-btn">🔍<br />Buscar</button>
-    <button class="action-btn">💬<br />Foro</button>
-    <button class="action-btn" (click)="crearConversacion()">
-      📝<br />Nuevo
+    <button class="action-btn" (click)="router.navigate(['/conversaciones'])">
+      <i class="icon">🔍</i>
+      <span>Buscar</span>
+    </button>
+    <button class="action-btn" (click)="router.navigate(['/forum'])">
+      <i class="icon">💬</i>
+      <span>Foro</span>
+    </button>
+    <button class="action-btn primary" (click)="crearConversacion()">
+      <i class="icon">📝</i>
+      <span>Nuevo</span>
     </button>
   </div>
 </div>

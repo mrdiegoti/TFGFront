@@ -84,5 +84,13 @@ isLoggedIn(): boolean {
   return !!localStorage.getItem('token');
 }
 
+getStatusText(status: string): string {
+  const statusMap: {[key: string]: string} = {
+    'scheduled': 'Programado',
+    'in_progress': 'En Vivo',
+    'closed': 'Finalizado'
+  };
+  return statusMap[status] || status;
+}
 
 }

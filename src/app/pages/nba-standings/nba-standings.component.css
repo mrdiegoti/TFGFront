@@ -1,42 +1,140 @@
-.standings {
+.standings-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   gap: 2rem;
-  padding: 2rem;
+  padding: 1.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .conference {
-  width: 45%;
-  background-color: #f3f3f3;
+  width: 48%;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.conference-title {
+  background: linear-gradient(135deg, #1d428a 0%, #17407d 100%);
+  color: white;
   padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin: 0;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  
+  .conference-icon {
+    display: flex;
+    
+    .east {
+      color: #e63946;
+    }
+    
+    .west {
+      color: #2a9d8f;
+    }
+  }
 }
 
-.conference h2 {
-  margin-bottom: 1rem;
-  text-align: center;
+.standings-header {
+  display: flex;
+  padding: 0.8rem 1rem;
+  background-color: #f5f5f5;
+  font-weight: 600;
+  color: #333;
+  border-bottom: 1px solid #e0e0e0;
+  
+  .team-header {
+    flex: 3;
+  }
+  
+  .record-header, .pct-header, .gb-header {
+    flex: 1;
+    text-align: center;
+  }
 }
 
-.conference ul {
-  list-style: none;
-  padding: 0;
+.team-list {
+  .team-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      background-color: #f8f8f8;
+      transform: translateX(4px);
+    }
+    
+    &.playoffs {
+      border-left: 4px solid #00aced;
+    }
+    
+    &.play-in {
+      border-left: 4px solid #ffc107;
+    }
+  }
+  
+  .team-info {
+    flex: 3;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  
+  .team-stats {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+  }
 }
 
-.conference li {
-  padding: 0.5rem;
-  border-bottom: 1px solid #ddd;
-  cursor: pointer;
-}
-
-.conference li:hover {
-  background-color: #e0e0e0;
+.team-rank {
+  font-weight: 600;
+  color: #666;
+  width: 1.5rem;
+  text-align: right;
 }
 
 .team-logo {
   width: 32px;
   height: 32px;
   object-fit: contain;
-  margin-right: 0.5rem;
-  vertical-align: middle;
+}
+
+.team-name {
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.team-record, .win-pct, .games-back {
+  text-align: center;
+  flex: 1;
+  font-family: 'Courier New', monospace;
+}
+
+.win-pct {
+  color: #666;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .standings-container {
+    flex-direction: column;
+  }
+  
+  .conference {
+    width: 100%;
+  }
+  
+  .team-name {
+    max-width: 120px;
+  }
 }

@@ -1,44 +1,49 @@
-.auth-container {
-  max-width: 400px;
-  margin: auto;
-  background-color: #f3f4f6;
+/* Asegúrate que estas variables existen en styles.css */
+:root {
+  --nba-red: #c8102e;
+  --nba-dark-red: #a00e26;
+  --gray-100: #f3f4f6;
+  --radius-lg: 0.5rem;
+}
+
+.nba-card-register {
+  max-width: 500px;
+  margin: 2rem auto;
+}
+
+.nba-auth-form {
   padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.auth-container h2 {
-  color: #1e3a8a;
-  text-align: center;
-  margin-bottom: 1rem;
+.nba-form-group {
+  margin-bottom: 1.5rem;
 }
 
-.auth-container input {
+.nba-input-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--nba-dark-red);
+}
+
+.nba-input {
   width: 100%;
-  padding: 0.75rem;
-  margin-bottom: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: var(--radius-lg);
+  font-size: 1rem;
 }
 
-.auth-container button {
-  width: 100%;
-  background-color: #1e3a8a;
+.nba-btn-red {
+  background: var(--nba-red);
   color: white;
-  padding: 0.75rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s;
-}
-
-.auth-container button:hover {
-  background-color: #dc2626;
-}
-
-.error-message {
-  color: red;
-  text-align: center;
+  width: 100%;
+  padding: 0.875rem;
+  border-radius: var(--radius-lg);
+  font-weight: 600;
   margin-top: 1rem;
+}
+
+.nba-btn-red:hover {
+  background: var(--nba-dark-red);
 }

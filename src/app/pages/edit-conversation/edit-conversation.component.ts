@@ -1,11 +1,12 @@
-// src/app/pages/edit-conversation/edit-conversation.component.ts
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-edit-conversation',
   templateUrl: './edit-conversation.component.html',
+  styleUrls: ['./edit-conversation.component.css']
 })
 export class EditConversationComponent implements OnInit {
   conversationId!: number;
@@ -13,14 +14,14 @@ export class EditConversationComponent implements OnInit {
     titulo: '',
     descripcion: ''
   };
-  // apiUrl = 'https://hoopsfever.up.railway.app/api';
-  apiUrl = 'http://localhost:8000/api';
-loading: any;
+  isLoading = true;
+  isSubmitting = false;
+  errorMessage: string | null = null;
 
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
-    private router: Router
+    public router: Router
   ) {}
 
   ngOnInit(): void {
@@ -29,43 +30,60 @@ loading: any;
   }
 
   loadConversation(): void {
+    this.isLoading = true;
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
     });
 
-    this.http.get(`${this.apiUrl}/conversaciones/${this.conversationId}`, { headers }).subscribe({
+    this.http.get(`${environment.apiUrl}/conversaciones/${this.conversationId}`, { headers }).subscribe({
       next: (data: any) => {
         this.conversation = {
           titulo: data.titulo,
           descripcion: data.descripcion
         };
+        this.isLoading = false;
       },
       error: (err) => {
         console.error('Error loading conversation:', err);
-        alert('No se pudo cargar la conversación.');
+        this.errorMessage = 'No se pudo cargar la conversación.';
+        this.isLoading = false;
+        setTimeout(() => this.errorMessage = null, 5000);
       }
     });
   }
 
   updateConversation(): void {
+    if (!this.conversation.titulo.trim() || !this.conversation.descripcion.trim()) {
+      this.errorMessage = 'Título y descripción son requeridos';
+      setTimeout(() => this.errorMessage = null, 5000);
+      return;
+    }
+
+    this.isSubmitting = true;
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
     });
 
-    this.http.put(`${this.apiUrl}/conversaciones/${this.conversationId}`, this.conversation, { headers }).subscribe({
+    this.http.put(`${environment.apiUrl}/conversaciones/${this.conversationId}`, this.conversation, { headers }).subscribe({
       next: () => {
-        alert('Conversación actualizada');
-        this.router.navigate(['/forum']);
+        this.router.navigate(['/forum'], {
+          queryParams: { success: 'Conversación actualizada correctamente' }
+        });
       },
       error: (err) => {
+        this.isSubmitting = false;
         if (err.status === 403) {
-          alert('No puedes editar la conversación porque no eres el propietario.');
+          this.errorMessage = 'No tienes permiso para editar esta conversación';
+        } else if (err.status === 404) {
+          this.errorMessage = 'La conversación no existe';
         } else {
-          console.error('Error updating conversation:', err);
-          alert('Error al actualizar la conversación');
+          this.errorMessage = 'Error al actualizar la conversación';
         }
+        setTimeout(() => this.errorMessage = null, 5000);
       }
     });
   }

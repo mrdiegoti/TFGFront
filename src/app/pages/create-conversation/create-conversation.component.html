@@ -1,18 +1,60 @@
-<div class="container">
-  <h2>Crear Nueva Conversación</h2>
+<div class="create-conversation-container">
+  <h2 class="create-title">Crear Nueva Conversación</h2>
 
-  <div *ngIf="error" class="error">{{ error }}</div>
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
 
-  <form (ngSubmit)="crearConversacion()" class="form">
-    <label for="titulo">Título:</label>
-    <input id="titulo" [(ngModel)]="titulo" name="titulo" required />
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
 
-    <label for="descripcion">Descripción:</label>
-    <textarea id="descripcion" [(ngModel)]="descripcion" name="descripcion" required></textarea>
+  <form (ngSubmit)="crearConversacion()" class="conversation-form">
+    <div class="form-group">
+      <label for="titulo" class="form-label">Título</label>
+      <input 
+        id="titulo" 
+        [(ngModel)]="titulo" 
+        name="titulo" 
+        class="form-input"
+        placeholder="Ingresa un título descriptivo"
+        maxlength="100"
+        required
+      />
+    </div>
 
-    <div class="botones">
-      <button type="submit">Crear</button>
-      <button type="button" (click)="cancelar()">Cancelar</button>
+    <div class="form-group">
+      <label for="descripcion" class="form-label">Descripción</label>
+      <textarea 
+        id="descripcion" 
+        [(ngModel)]="descripcion" 
+        name="descripcion" 
+        class="form-textarea"
+        placeholder="Describe el tema de la conversación..."
+        rows="5"
+        required
+      ></textarea>
+    </div>
+
+    <div class="form-actions">
+      <button 
+        type="submit" 
+        class="btn-submit"
+        [disabled]="isLoading"
+      >
+        <span *ngIf="!isLoading">Crear Conversación</span>
+        <span *ngIf="isLoading" class="submit-loading">
+          <span class="spinner"></span> Creando...
+        </span>
+      </button>
+      
+      <button 
+        type="button" 
+        class="btn-cancel"
+        (click)="cancelar()"
+      >
+        Cancelar
+      </button>
     </div>
   </form>
 </div>

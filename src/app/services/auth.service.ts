@@ -30,7 +30,7 @@ export class AuthService {
       .pipe(tap((res) => this.storeToken(res.token)));
   }
 
-  login(user: User): Observable<JwtResponse> {
+  login(user: User, password: any): Observable<JwtResponse> {
     return this.http.post<JwtResponse>(`${this.apiURL}/login`, user).pipe(
       tap((res) => {
         const jwtRes = res as JwtResponse;

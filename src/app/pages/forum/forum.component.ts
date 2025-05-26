@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-forum',
   templateUrl: './forum.component.html',
-  styleUrls: ['./forum.component.css'],
+  styleUrls: ['./forum.component.css']
 })
 export class ForumComponent implements OnInit {
   conversaciones: any[] = [];
@@ -14,29 +14,27 @@ export class ForumComponent implements OnInit {
   constructor(
     private forum: ForumService,
     public auth: AuthService,
-    private router: Router
+    public router: Router
   ) {}
 
   ngOnInit(): void {
-    this.auth.getUser();
+    this.loadConversations();
+  }
 
+  private loadConversations(): void {
+    this.auth.getUser();
+    
     this.forum.getConversations().subscribe({
       next: (data) => {
-        // Mostrar solo las 3 últimas conversaciones
-        console.log('Conversaciones cargadas:', data);
-        this.conversaciones = data.slice(-4).reverse();
-        console.log(this.conversaciones); // <-- AQUÍ
+        this.conversaciones = data.slice(-3).reverse();
       },
       error: (err) => {
         console.error('Error cargando conversaciones', err);
-      },
+      }
     });
   }
 
-  logout(): void {
-    this.auth.logout();
-  }
-
+  // Métodos existentes (sin cambios en funcionalidad)
   verConversacion(id: number): void {
     this.router.navigate(['/conversacion', id]);
   }
@@ -57,21 +55,13 @@ export class ForumComponent implements OnInit {
         this.conversaciones = this.conversaciones.filter(conv => conv.id !== id);
       },
       error: (err) => {
-        console.error('Error eliminando conversación:', err);
-        alert('Error al eliminar la conversación, no eres el propietario.');
-      },
+        if (err && err.error && err.error.message && err.error.message.includes('comentario')) {
+          alert('No puedes eliminar la conversación porque ya hay comentarios en ella.');
+        } else {
+          console.error('Error eliminando conversación:', err);
+          alert('Error al eliminar la conversación, no eres el propietario.');
+        }
+      }
     });
   }
-
-  verTodas(): void {
-  this.router.navigate(['/conversaciones']);
-}
-
-esPropietario(conv: any): boolean {
-  const userId = this.auth.getCurrentUserId();
-  return this.auth.isLoggedIn() && userId === conv.user_id;
-}
-
-
-
 }

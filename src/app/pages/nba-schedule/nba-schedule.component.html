@@ -1,35 +1,55 @@
 <div class="schedule-container">
-  <h2>Calendario NBA</h2>
+  <h2 class="schedule-title">Calendario NBA</h2>
 
-  <input type="date" [(ngModel)]="fecha" (change)="obtenerPartidos()" />
-
-  <div *ngIf="error" class="error">
-    {{ error }}
+  <div class="date-picker-container">
+    <input type="date" [(ngModel)]="fecha" (change)="obtenerPartidos()" class="date-picker" />
   </div>
 
-  <div *ngIf="partidos.length === 0 && !error">
-    No hay partidos programados para esta fecha.
+  <div *ngIf="error" class="error-message">
+    <i class="fas fa-exclamation-circle"></i> {{ error }}
   </div>
 
-  <div *ngFor="let partido of partidos" class="partido-card">
-    <div class="equipos">
-      <div class="equipo">
-        <img [src]="getLogoUrl(partido.away.name)" alt="{{ partido.away.name }}" />
-        <span>{{ partido.away.name }}</span>
-        <strong *ngIf="partido.away_points !== null">{{ partido.away_points }}</strong>
+  <div *ngIf="partidos.length === 0 && !error" class="no-games">
+    <i class="fas fa-calendar-times"></i> No hay partidos programados para esta fecha.
+  </div>
+
+  <div class="games-grid">
+    <div *ngFor="let partido of partidos" class="game-card" [class.live]="partido.status === 'in_progress'">
+      <div class="game-header">
+        <span class="game-time">{{ partido.scheduled | date:'shortTime' }}</span>
+        <span class="game-status" [ngClass]="{
+          'live': partido.status === 'in_progress',
+          'final': partido.status === 'closed',
+          'upcoming': partido.status === 'scheduled'
+        }">
+          {{ getStatusText(partido.status) }}
+          <span *ngIf="partido.status === 'in_progress'" class="pulse-dot">●</span>
+        </span>
       </div>
-      <span class="vs">vs</span>
-      <div class="equipo">
-        <img [src]="getLogoUrl(partido.home.name)" alt="{{ partido.home.name }}" />
-        <span>{{ partido.home.name }}</span>
-        <strong *ngIf="partido.home_points !== null">{{ partido.home_points }}</strong>
+
+      <div class="teams-container">
+        <div class="team" [class.winner]="partido.away_points > partido.home_points">
+          <img [src]="getLogoUrl(partido.away.name)" alt="{{ partido.away.name }}" class="team-logo" />
+          <span class="team-name">{{ partido.away.name }}</span>
+          <span class="team-score" *ngIf="partido.away_points !== null">{{ partido.away_points }}</span>
+          <span class="team-score" *ngIf="partido.away_points === null">-</span>
+        </div>
+        
+        <div class="vs">VS</div>
+        
+        <div class="team" [class.winner]="partido.home_points > partido.away_points">
+          <img [src]="getLogoUrl(partido.home.name)" alt="{{ partido.home.name }}" class="team-logo" />
+          <span class="team-name">{{ partido.home.name }}</span>
+          <span class="team-score" *ngIf="partido.home_points !== null">{{ partido.home_points }}</span>
+          <span class="team-score" *ngIf="partido.home_points === null">-</span>
+        </div>
+      </div>
+
+      <div class="game-footer">
+        <button *ngIf="isLoggedIn()" (click)="verDetalles(partido.id)" class="details-btn">
+          <i class="fas fa-info-circle"></i> Ver Detalles
+        </button>
       </div>
     </div>
-
-    <div class="detalles">
-      Estado: {{ partido.status }} | Hora: {{ partido.scheduled | date:'shortTime' }}
-    </div>
-
-<button *ngIf="isLoggedIn()" (click)="verDetalles(partido.id)">Ver Detalles</button>
   </div>
 </div>

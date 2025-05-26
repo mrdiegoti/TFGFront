@@ -1,83 +1,247 @@
 .conversation-container {
   max-width: 800px;
-  margin: auto;
-  padding: 1rem;
-  font-family: Arial, sans-serif;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: #f8fafc;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h2 {
+  color: #1e3a8a;
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 0.5rem;
 }
 
 .description {
-  color: #666;
+  color: #4b5563;
   margin-bottom: 2rem;
+  line-height: 1.6;
+  font-size: 1.1rem;
 }
 
 .comments-section {
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
+  
+  h3 {
+    color: #1e3a8a;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    
+    &::before {
+      content: '';
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%231e3a8a"><path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>');
+    }
+  }
 }
 
-/* Reutilizamos la clase conversation-card para las cards de comentario */
 .comment-card {
-  background-color: #ffffff;
-  border: 2px solid #1e3a8a;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(30, 58, 138, 0.1);
-  padding: 1rem;
-  margin-bottom: 1rem;
+  background-color: white;
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border-left: 4px solid #1e3a8a;
+  transition: all 0.3s ease;
+  position: relative;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
 }
 
 .comment-author {
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-  color: #dc2626; /* opcional para que destaque igual que títulos */
+  font-weight: 700;
+  color: #1e3a8a;
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  
+  &::before {
+    content: '👤';
+    font-size: 0.9rem;
+  }
 }
 
 .comment-content {
-  font-size: 14px;
   color: #374151;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  padding-left: 1.5rem;
+  border-left: 2px solid #e5e7eb;
 }
 
-.comment-form textarea {
-  width: 100%;
-  height: 100px;
-  padding: 0.5rem;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  resize: vertical;
+.comment-edit-form {
+  margin: 1rem 0;
+  
+  textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-family: inherit;
+    margin-bottom: 1rem;
+    resize: vertical;
+    transition: all 0.2s;
+    
+    &:focus {
+      outline: none;
+      border-color: #1e3a8a;
+      box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
+    }
+  }
+  
+  button {
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-right: 0.8rem;
+    
+    &:first-child {
+      background-color: #1e3a8a;
+      color: white;
+      border: none;
+      
+      &:hover {
+        background-color: #15306b;
+      }
+    }
+    
+    &:last-child {
+      background-color: #f3f4f6;
+      color: #4b5563;
+      border: 1px solid #d1d5db;
+      
+      &:hover {
+        background-color: #e5e7eb;
+      }
+    }
+  }
 }
 
-.comment-form button {
-  background-color: #1e3a8a;
-  color: white;
-  border: none;
-  padding: 0.6rem 1.2rem;
+.comment-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.8rem;
+  
+  button {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    
+    &:first-child {
+      background-color: #f59e0b;
+      color: white;
+      border: none;
+      
+      &:hover {
+        background-color: #d97706;
+      }
+      
+      &::before {
+        content: '✏️';
+      }
+    }
+    
+    &:last-child {
+      background-color: #dc2626;
+      color: white;
+      border: none;
+      
+      &:hover {
+        background-color: #b91c1c;
+      }
+      
+      &::before {
+        content: '🗑️';
+      }
+    }
+  }
+}
+
+.comment-form {
+  background-color: white;
+  padding: 1.5rem;
   border-radius: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  
+  h4 {
+    color: #1e3a8a;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+  }
+  
+  textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-family: inherit;
+    margin-bottom: 1rem;
+    resize: vertical;
+    transition: all 0.2s;
+    
+    &:focus {
+      outline: none;
+      border-color: #1e3a8a;
+      box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
+    }
+  }
+  
+  button {
+    background-color: #1e3a8a;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    
+    &:hover {
+      background-color: #15306b;
+    }
+    
+    &::before {
+      content: '📤';
+    }
+  }
 }
 
-.comment-form button:hover {
-  background-color: #dc2626;
-}
-
-/* Botones editar y eliminar dentro de comentario */
-
-.comment-actions button {
-  font-size: 0.85rem;
-  margin-right: 0.5rem;
-  border: none;
-  padding: 0.4rem 0.8rem;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.comment-actions button:first-child {
-  background-color: #facc15; /* amarillo para editar */
-  color: #000;
-}
-
-.comment-actions button:last-child {
-  background-color: #dc2626; /* rojo para eliminar */
-  color: #fff;
+/* Responsive design */
+@media (max-width: 768px) {
+  .conversation-container {
+    padding: 1rem;
+    margin: 1rem;
+  }
+  
+  .comment-actions {
+    justify-content: space-between;
+  }
 }

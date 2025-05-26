@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
@@ -22,6 +22,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { PlayoffsBracketComponent } from './pages/playoffs-bracket/playoffs-bracket.component';
 import { NbaStandingsComponent } from './pages/nba-standings/nba-standings.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+
 // import { EditGameCommentComponent } from './pages/edit-game-comment/edit-game-comment.component';
 
 @NgModule({
@@ -42,13 +43,15 @@ import { AdminPanelComponent } from './admin-panel/admin-panel.component';
     PlayoffsBracketComponent,
     NbaStandingsComponent,
     AdminPanelComponent,
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

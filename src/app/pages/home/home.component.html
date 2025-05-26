@@ -1,57 +1,139 @@
-<div class="home-container">
-  <a routerLink="/nba-schedule" class="btn btn-primary mb-4">Ver Calendario NBA</a>
-
-  <h2 class="home-title">Elige un Tema de Discusión</h2>
-  <div class="topics-wrapper">
-    <button
-      *ngFor="let c of ultimasConversaciones"
-      class="btn btn-outline-primary btn-sm"
-      (click)="irAConversacion(c.id)"
-    >
-      {{ c.titulo }}
-    </button>
-  </div>
-
-  <h3 class="section-title">Partidos Destacados</h3>
-  <div class="cards-wrapper">
-    <div class="highlight-card">
-      <h4>Team A vs Team B</h4>
-      <p class="text-muted">Game 1</p>
-      <p class="score">Final Score: 102-98</p>
+<div class="nba-home-container">
+  <!-- Hero Banner -->
+  <section class="nba-hero" style="background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://cdn.nba.com/manage/2021/08/court-lines-1568x882.jpg')">
+    <div class="nba-hero-content">
+      <h1 class="nba-hero-title">Welcome to Hoops Fever</h1>
+      <p class="nba-hero-subtitle">Your ultimate basketball experience</p>
+      <button class="nba-btn nba-btn-hero" routerLink="/nba-schedule">
+        Explore Games
+      </button>
     </div>
-    <div class="highlight-card">
-      <h4>Team C vs Team D</h4>
-      <p class="text-muted">Game 2</p>
-      <p class="score">Final Score: 85-79</p>
-    </div>
-  </div>
+  </section>
 
-  <h3 class="section-title">Últimos Artículos</h3>
-  <div class="article-list">
-    <div class="article-card">
-      <div class="article-thumb"></div>
-      <div>
-        <h5 class="mb-1">The MVP Race</h5>
-        <p class="mb-1 small">Analizando los contendientes al MVP de esta temporada</p>
-        <small class="text-muted">Sports Analyst A</small>
+  <!-- Features Grid -->
+  <section class="nba-features-section">
+    <h2 class="nba-section-title">Featured Content</h2>
+    <div class="nba-features-grid">
+      <div class="nba-feature-card" routerLink="/nba-schedule">
+        <div class="nba-feature-icon">🏀</div>
+        <h3>Live Games</h3>
+        <p>Follow real-time NBA action</p>
+      </div>
+      
+      <div class="nba-feature-card" routerLink="/nba-standings">
+        <div class="nba-feature-icon">🏆</div>
+        <h3>Teams</h3>
+        <p>Explore all 30 NBA teams</p>
+      </div>
+      
+      <div class="nba-feature-card" routerLink="/forum">
+        <div class="nba-feature-icon">💬</div>
+        <h3>Forum</h3>
+        <p>Discuss with other users</p>
       </div>
     </div>
-    <div class="article-card">
-      <div class="article-thumb"></div>
-      <div>
-        <h5 class="mb-1">Team Rankings</h5>
-        <p class="mb-1 small">¿Qué equipo tiene el mejor récord hasta ahora?</p>
-        <small class="text-muted">Sports Reporter B</small>
+  </section>
+
+  <!-- Live Scores Section -->
+  <section class="nba-scores-section">
+    <div class="nba-section-header">
+      <h2 class="nba-section-title">Today's Games</h2>
+      <a routerLink="/nba-schedule" class="nba-view-all">View All</a>
+    </div>
+    
+    <div class="nba-games-list">
+      <!-- Game 1: DEN vs LAL -->
+      <div class="nba-game-card">
+        <div class="nba-game-teams">
+          <div class="nba-game-team">
+            <img src="https://cdn.nba.com/logos/nba/1610612743/primary/L/logo.svg" alt="Denver Nuggets" class="nba-team-logo">
+            <span>DEN</span>
+          </div>
+          <div class="nba-game-vs">VS</div>
+          <div class="nba-game-team">
+            <img src="https://cdn.nba.com/logos/nba/1610612747/primary/L/logo.svg" alt="Los Angeles Lakers" class="nba-team-logo">
+            <span>LAL</span>
+          </div>
+        </div>
+        <div class="nba-game-details">
+          <div class="nba-game-time">8:30 PM ET</div>
+          <div class="nba-game-status">Live Q3</div>
+        </div>
+      </div>
+      
+      <!-- Game 2: BOS vs GSW -->
+      <div class="nba-game-card">
+        <div class="nba-game-teams">
+          <div class="nba-game-team">
+            <img src="https://cdn.nba.com/logos/nba/1610612738/primary/L/logo.svg" alt="Boston Celtics" class="nba-team-logo">
+            <span>BOS</span>
+          </div>
+          <div class="nba-game-vs">VS</div>
+          <div class="nba-game-team">
+            <img src="https://cdn.nba.com/logos/nba/1610612744/primary/L/logo.svg" alt="Golden State Warriors" class="nba-team-logo">
+            <span>GSW</span>
+          </div>
+        </div>
+        <div class="nba-game-details">
+          <div class="nba-game-time">7:00 PM ET</div>
+          <div class="nba-game-status">Starting Soon</div>
+        </div>
+      </div>
+      
+      <!-- Game 3: GSW vs BKN -->
+      <div class="nba-game-card">
+        <div class="nba-game-teams">
+          <div class="nba-game-team">
+            <img src="https://cdn.nba.com/logos/nba/1610612744/primary/L/logo.svg" alt="Golden State Warriors" class="nba-team-logo">
+            <span>GSW</span>
+          </div>
+          <div class="nba-game-vs">VS</div>
+          <div class="nba-game-team">
+            <img src="https://cdn.nba.com/logos/nba/1610612751/primary/L/logo.svg" alt="Brooklyn Nets" class="nba-team-logo">
+            <span>BKN</span>
+          </div>
+        </div>
+        <div class="nba-game-details">
+          <div class="nba-game-time">9:00 PM ET</div>
+          <div class="nba-game-status">Final</div>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <form class="search-bar">
-    <input
-      type="text"
-      class="form-control"
-      placeholder="Buscar un partido o tema"
-    />
-    <button class="btn btn-primary" type="submit">🔍</button>
-  </form>
+  <!-- News Section -->
+  <section class="nba-news-section">
+    <h2 class="nba-section-title">Latest News</h2>
+    <div class="nba-news-grid">
+      <!-- News 1: All-Star -->
+      <div class="nba-news-card">
+        <img src="https://imgs.search.brave.com/2RDd2KZd5U_hNWbcP4Emjus-09aVErFiRY1zb2RVJOI/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pbWdz/LnNlYXJjaC5icmF2/ZS5jb20vbzZTUWll/cUVmQnR0N2ppUDlH/RU53aGZXVkdlSmNW/Y2JZMkhSYnBfV09f/OC9yczpmaXQ6NTAw/OjA6MDowL2c6Y2Uv/YUhSMGNITTZMeTlq/Wkc0dS9ibUpoTG1O/dmJTOXRZVzVoL1oy/VXZNakF5TkM4d01T/OVYvVUVSQlZFVkVM/VmRGVTFRdC9NVFo0/T1MweUxtcHdadw.jpeg" alt="All-Star starters" class="nba-news-image">
+        <div class="nba-news-content">
+          <h3>2024 All-Star Starters Announced</h3>
+          <p>The NBA reveals the starting lineups for the 73rd All-Star Game in Indianapolis.</p>
+          <a href="#" class="nba-news-link">Read More →</a>
+        </div>
+      </div>
+      
+      <!-- News 2: Trade Deadline -->
+      <div class="nba-news-card">
+        <img src="https://imgs.search.brave.com/CAJMufSidPyfQpZS6G9tpW4xp6eIRvWnbRWjT3S27-I/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pbWdz/LnNlYXJjaC5icmF2/ZS5jb20vRXRHZ1Ju/WDJhcjRmVzVjWnB4/OHVzNVhocmxKcWIx/LWk0eXhYMnVUT0x5/TS9yczpmaXQ6NTAw/OjA6MDowL2c6Y2Uv/YUhSMGNITTZMeTlq/Wkc0dS9ibUpoTG1O/dmJTOXRZVzVoL1oy/VXZNakF5TlM4d01p/OUgvWlhSMGVVbHRZ/V2RsY3kweC9PVFEy/TURRek1EUTJMWE5q/L1lXeGxaQzFsTVRj/ek9EVXkvTVRNeE9E/UXdOeTVxY0dj.jpeg" alt="Trade deadline" class="nba-news-image">
+        <div class="nba-news-content">
+          <h3>Trade Deadline Recap</h3>
+          <p>Breaking down all the major moves from this year's NBA trade deadline.</p>
+          <a href="#" class="nba-news-link">Read More →</a>
+        </div>
+      </div>
+      
+      <!-- News 3: Rising Stars -->
+      <div class="nba-news-card">
+        <img src="https://imgs.search.brave.com/3kGoFSzK97F27Hnh-q5WE6kgntT576PYPbaYTEpu4z0/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pbWdz/LnNlYXJjaC5icmF2/ZS5jb20veGZCMnFY/ZUtRZDdnOWRrQUpv/alQ0ay0xVW9RX3Js/LXlJaDhtTDdKNVVV/dy9yczpmaXQ6NTAw/OjA6MDowL2c6Y2Uv/YUhSMGNITTZMeTls/TURBdC9lR3hyTFhW/bExXMWhjbU5oL0xu/VmxZMlJ1TG1Wekwz/VncvYkc5aFpITXZN/akF5TlM4dy9NaTh4/TlM4Mk4ySXdORFZs/L01tUmxNV00yTG1w/d1pXYw.jpeg" alt="Rising Stars" class="nba-news-image">
+        <div class="nba-news-content">
+          <h3>Rising Stars Challenge Preview</h3>
+          <p>Get to know the top rookies and sophomores competing in the annual showcase.</p>
+          <a href="#" class="nba-news-link">Read More →</a>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>

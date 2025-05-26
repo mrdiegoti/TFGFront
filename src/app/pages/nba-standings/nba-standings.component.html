@@ -1,19 +1,37 @@
-<div class="conference">
-  <h2>Conferencia Este</h2>
-  <ul>
-    <li *ngFor="let team of east" (click)="goToTeam(team)" style="cursor:pointer;">
-      <img [src]="getTeamLogo(team.reference)" alt="{{ team.name }}" class="team-logo" />
-      <span>{{ team.market }} {{ team.name }} ({{ team.wins }}-{{ team.losses }})</span>
-    </li>
-  </ul>
-</div>
-
-<div class="conference">
-  <h2>Conferencia Oeste</h2>
-  <ul>
-    <li *ngFor="let team of west" (click)="goToTeam(team)" style="cursor:pointer;">
-      <img [src]="getTeamLogo(team.reference)" alt="{{ team.name }}" class="team-logo" />
-      <span>{{ team.market }} {{ team.name }} ({{ team.wins }}-{{ team.losses }})</span>
-    </li>
-  </ul>
+<div class="standings-container">
+  <div class="conference" *ngFor="let conference of [east, west]; let i = index">
+    <h2 class="conference-title">
+      <span class="conference-icon">
+        <i [class]="i === 0 ? 'fas fa-basketball-ball east' : 'fas fa-basketball-ball west'"></i>
+      </span>
+      {{ i === 0 ? 'Conferencia Este' : 'Conferencia Oeste' }}
+    </h2>
+    
+    <div class="standings-header">
+      <span class="team-header">Equipo</span>
+      <span class="record-header">Récord</span>
+      <span class="pct-header">%</span>
+      <span class="gb-header">GB</span>
+    </div>
+    
+    <div class="team-list">
+      <div *ngFor="let team of conference; let rank = index" 
+           class="team-card" 
+           (click)="goToTeam(team)"
+           [class.playoffs]="rank < 8"
+           [class.play-in]="rank >= 8 && rank < 10">
+        <div class="team-info">
+          <span class="team-rank">{{ rank + 1 }}.</span>
+          <img [src]="getTeamLogo(team.reference)" alt="{{ team.name }}" class="team-logo">
+          <span class="team-name">{{ team.market }} {{ team.name }}</span>
+        </div>
+        
+        <div class="team-stats">
+          <span class="team-record">{{ team.wins }}-{{ team.losses }}</span>
+          <span class="win-pct">{{ (team.wins / (team.wins + team.losses) | number:'1.3') }}</span>
+          <span class="games-back">{{ team.games_back || '0.0' }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

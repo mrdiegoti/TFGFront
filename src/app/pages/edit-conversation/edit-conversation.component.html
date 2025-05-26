@@ -1,35 +1,64 @@
-<div class="edit-conversation-container" *ngIf="!loading; else loadingTpl">
-  <h2>Editar Conversación</h2>
+<div class="edit-container">
+  <div *ngIf="isLoading" class="loading-overlay">
+    <div class="spinner"></div>
+    <p>Cargando conversación...</p>
+  </div>
 
-  <form (ngSubmit)="updateConversation()">
-
-    <div>
-      <label for="titulo">Título:</label><br />
-      <input
-        type="text"
-        id="titulo"
-        name="titulo"
-        [(ngModel)]="conversation.titulo"
-        placeholder="Título de la conversación"
-        maxlength="255"
-      />
+  <div *ngIf="!isLoading" class="edit-form-container">
+    <h2 class="edit-title">Editar Conversación</h2>
+    
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
     </div>
 
-    <div style="margin-top: 1rem;">
-      <label for="descripcion">Descripción:</label><br />
-      <textarea
-        id="descripcion"
-        name="descripcion"
-        [(ngModel)]="conversation.descripcion"
-        placeholder="Descripción de la conversación"
-        rows="5"
-      ></textarea>
-    </div>
+    <form (ngSubmit)="updateConversation()" class="conversation-form">
+      <div class="form-group">
+        <label for="titulo" class="form-label">Título</label>
+        <input
+          type="text"
+          id="titulo"
+          name="titulo"
+          [(ngModel)]="conversation.titulo"
+          class="form-input"
+          placeholder="Título de la conversación"
+          maxlength="255"
+          required
+        />
+      </div>
 
-    <button type="submit" style="margin-top: 1rem;">Actualizar</button>
-  </form>
+      <div class="form-group">
+        <label for="descripcion" class="form-label">Descripción</label>
+        <textarea
+          id="descripcion"
+          name="descripcion"
+          [(ngModel)]="conversation.descripcion"
+          class="form-textarea"
+          placeholder="Descripción de la conversación"
+          rows="5"
+          required
+        ></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button 
+          type="submit" 
+          class="btn-submit"
+          [disabled]="isSubmitting"
+        >
+          <span *ngIf="!isSubmitting">Actualizar Conversación</span>
+          <span *ngIf="isSubmitting" class="submit-loading">
+            <span class="spinner-small"></span> Guardando...
+          </span>
+        </button>
+        
+        <button 
+          type="button" 
+          class="btn-cancel"
+          (click)="router.navigate(['/forum'])"
+        >
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
-
-<ng-template #loadingTpl>
-  <p>Cargando...</p>
-</ng-template>

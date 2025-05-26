@@ -1,69 +1,396 @@
-:host {
-  display: block;
-  max-width: 1000px;
+/* game-detail.component.scss */
+.game-detail-container {
+  max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
-  background-color: #121212;
+  background-color: #1e1e1e;
   color: #ffffff;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-h2, h3 {
+.game-header {
+  margin-bottom: 2rem;
+}
+
+.teams-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  padding: 1.5rem;
+  background-color: #2a2a2a;
+  border-radius: 8px;
+}
+
+.team {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  padding: 1rem;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+  
+  &.winner {
+    background-color: rgba(0, 172, 237, 0.1);
+    .team-name, .team-score {
+      color: #00aced;
+    }
+  }
+}
+
+.team-logo {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 1rem;
+  object-fit: contain;
+}
+
+.team-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  color: #ffffff;
+}
+
+.team-score {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.game-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.game-status {
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  text-transform: uppercase;
+  
+  &.live {
+    background-color: #e63946;
+    color: white;
+  }
+  
+  &.final {
+    background-color: #2a9d8f;
+    color: white;
+  }
+  
+  &.scheduled {
+    background-color: #666;
+    color: white;
+  }
+}
+
+.live-badge {
+  display: inline-block;
+  background-color: white;
+  color: #e63946;
+  padding: 0.2rem 0.5rem;
+  border-radius: 3px;
+  font-size: 0.7rem;
+  margin-left: 0.5rem;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+.game-date, .game-venue {
+  font-size: 0.9rem;
+  color: #b0b0b0;
+  
+  i {
+    margin-right: 0.5rem;
+    color: #00aced;
+  }
+}
+
+.section-title {
   color: #00aced;
-  margin-top: 1rem;
+  font-size: 1.3rem;
+  margin: 1.5rem 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #333;
 }
 
-p {
-  margin: 0.5rem 0;
+.game-summary {
+  background-color: #2a2a2a;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  line-height: 1.6;
 }
 
-.table-container {
-  margin-top: 2rem;
+.stats-section {
+  margin-bottom: 2rem;
+}
+
+.stats-tables {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.team-stats {
+  h4 {
+    color: #ffffff;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
 }
 
 .stats-table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 2rem;
-  background-color: #1e1e1e;
-}
-
-.stats-table th, .stats-table td {
-  border: 1px solid #333;
-  padding: 0.6rem;
-  text-align: center;
-}
-
-.stats-table th {
-  background-color: #00aced;
-  color: #fff;
-}
-
-.stats-table td {
-  color: #ddd;
-}
-
-.error {
-  color: #ff6b6b;
-  font-weight: bold;
-  margin-top: 2rem;
-  text-align: center;
+  background-color: #2a2a2a;
+  border-radius: 8px;
+  overflow: hidden;
+  
+  th, td {
+    padding: 0.8rem;
+    text-align: center;
+    border: 1px solid #333;
+  }
+  
+  th {
+    background-color: #00aced;
+    color: white;
+    font-weight: 600;
+  }
+  
+  td {
+    color: #e0e0e0;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #252525;
+  }
+  
+  tr:hover {
+    background-color: #333;
+  }
 }
 
 .comments-section {
-  margin-top: 2rem;
+  margin-top: 3rem;
 }
+
+.comments-list {
+  margin-bottom: 2rem;
+}
+
 .comment {
-  padding: 0.5rem;
-  border-bottom: 1px solid #ddd;
+  background-color: #2a2a2a;
+  border-radius: 8px;
+  padding: 1.2rem;
+  margin-bottom: 1rem;
 }
-.comment-form textarea {
-  width: 100%;
-  padding: 0.5rem;
-  margin-bottom: 0.5rem;
+
+.comment-content {
+  .comment-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+  }
+  
+  .comment-author {
+    font-weight: 600;
+    color: #00aced;
+  }
+  
+  .comment-date {
+    font-size: 0.8rem;
+    color: #888;
+  }
+  
+  .comment-text {
+    margin: 0.5rem 0;
+    line-height: 1.5;
+  }
 }
-.comment-form button {
-  padding: 0.5rem 1rem;
+
+.comment-actions {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 0.8rem;
+  
+  button {
+    padding: 0.4rem 0.8rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: all 0.2s;
+    
+    i {
+      font-size: 0.8rem;
+    }
+  }
+  
+  .btn-edit {
+    background-color: #2a9d8f;
+    color: white;
+    
+    &:hover {
+      background-color: #21867a;
+    }
+  }
+  
+  .btn-delete {
+    background-color: #e63946;
+    color: white;
+    
+    &:hover {
+      background-color: #d62839;
+    }
+  }
+}
+
+.comment-edit-form {
+  .edit-textarea {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 0.8rem;
+    background-color: #333;
+    border: 1px solid #444;
+    border-radius: 4px;
+    color: white;
+    font-family: inherit;
+    resize: vertical;
+  }
+  
+  .edit-actions {
+    display: flex;
+    gap: 0.8rem;
+    
+    button {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.2s;
+    }
+    
+    .btn-save {
+      background-color: #00aced;
+      color: white;
+      
+      &:hover {
+        background-color: #0095d6;
+      }
+    }
+    
+    .btn-cancel {
+      background-color: #666;
+      color: white;
+      
+      &:hover {
+        background-color: #555;
+      }
+    }
+  }
+}
+
+.no-comments {
+  text-align: center;
+  color: #888;
+  font-style: italic;
+  padding: 1rem;
+}
+
+.comment-form {
+  background-color: #2a2a2a;
+  padding: 1.5rem;
+  border-radius: 8px;
+  
+  h4 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #ffffff;
+  }
+  
+  .comment-textarea {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    background-color: #333;
+    border: 1px solid #444;
+    border-radius: 4px;
+    color: white;
+    font-family: inherit;
+    resize: vertical;
+  }
+  
+  .btn-submit {
+    background-color: #00aced;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.2s;
+    
+    &:hover {
+      background-color: #0095d6;
+    }
+  }
+}
+
+.error-message {
+  background-color: #2a0000;
+  color: #ff6b6b;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 2rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  
+  i {
+    font-size: 1.2rem;
+  }
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .teams-container {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .stats-tables {
+    grid-template-columns: 1fr;
+  }
+  
+  .team-logo {
+    width: 60px;
+    height: 60px;
+  }
 }
