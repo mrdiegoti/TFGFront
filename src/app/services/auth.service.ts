@@ -30,18 +30,26 @@ export class AuthService {
       .pipe(tap((res) => this.storeToken(res.token)));
   }
 
-  login(user: User, password: any): Observable<JwtResponse> {
-    return this.http.post<JwtResponse>(`${this.apiURL}/login`, user).pipe(
-      tap((res) => {
-        const jwtRes = res as JwtResponse;
-        this.storeToken(jwtRes.token);
-        this.getUser(); // Verifica si es admin y redirige
-        const payload = JSON.parse(atob(jwtRes.token.split('.')[1]));
-        if (payload?.user?.id) {
-          localStorage.setItem('user_id', payload.user.id);
-        }
-      })
-    );
+  login(email: string, password: string): Observable<JwtResponse> {
+    return this.http
+      .post<JwtResponse>(`${this.apiURL}/login`, { email, password })
+      .pipe(
+        tap((res) => {
+          const jwtRes = res as JwtResponse;
+          this.storeToken(jwtRes.token);
+          this.getUser().subscribe((user) => {
+            if (user.role_id === 1) {
+              this.router.navigate(['/admin']);
+            } else {
+              this.router.navigate(['/']);
+            }
+          }); // Verifica si es admin y redirige
+          const payload = JSON.parse(atob(jwtRes.token.split('.')[1]));
+          if (payload?.user?.id) {
+            localStorage.setItem('user_id', payload.user.id);
+          }
+        })
+      );
   }
 
   logout(): void {

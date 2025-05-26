@@ -37,6 +37,7 @@ export class NbaGameDetailComponent implements OnInit {
     if (this.gameId) {
       this.http
         .get<any>(`http://localhost:8000/api/nba/game/${this.gameId}`)
+        // .get<any>(`http://hoopsfever.up.railway.app/api/nba/game/${this.gameId}`)
         .subscribe({
           next: (data) => {
             this.partido = data;

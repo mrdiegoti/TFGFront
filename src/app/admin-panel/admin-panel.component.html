@@ -1,174 +1,320 @@
-<div class="container">
-  <!-- USUARIOS -->
-  <h2>Usuarios</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Nombre</th>
-        <th>Email</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let user of users">
-        <td>{{ user.name }}</td>
-        <td>{{ user.email }}</td>
-        <td>
-          <button (click)="editUserData(user)">Editar</button>
-          <button type="button" (click)="deleteUser(user.id)">Eliminar</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<div class="admin-container">
+  <!-- Sección Usuarios -->
+  <section class="admin-section">
+    <div class="section-header">
+      <h2><i class="fas fa-users"></i> Gestión de Usuarios</h2>
+      <div class="section-actions">
+        <button class="btn-refresh" (click)="loadUsers()">
+          <i class="fas fa-sync-alt"></i> Actualizar
+        </button>
+      </div>
+    </div>
 
-  <div *ngIf="editUser">
-    <h3>Editar Usuario</h3>
-    <form (ngSubmit)="updateUser()">
-      <input
-        [(ngModel)]="editUser.name"
-        name="name"
-        placeholder="Nombre"
-        required
-      />
-      <input
-        [(ngModel)]="editUser.email"
-        name="email"
-        placeholder="Email"
-        required
-      />
-      <input
-        [(ngModel)]="editUser.password"
-        name="password"
-        placeholder="Nueva contraseña (opcional)"
-      />
-      <button type="submit">Guardar</button>
-      <button type="button" (click)="editUser = null">Cancelar</button>
-    </form>
-  </div>
+    <div class="table-responsive">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Rol</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td>{{ user.id }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.role || "Usuario" }}</td>
+            <td class="actions">
+              <button
+                class="btn-edit"
+                (click)="editUserData(user)"
+                title="Editar"
+              >
+                <i class="fas fa-pencil-alt"></i>
+                <!-- Icono de lápiz más claro -->
+              </button>
+              <button
+                class="btn-delete"
+                (click)="deleteUser(user.id)"
+                title="Eliminar"
+              >
+                <i class="fas fa-trash"></i>
+                <!-- Icono de papelera más claro -->
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-  <hr />
+    <!-- Formulario Edición Usuario -->
+    <div *ngIf="editUser" class="edit-form">
+      <h3><i class="fas fa-user-edit"></i> Editar Usuario</h3>
+      <form (ngSubmit)="updateUser()">
+        <div class="form-group">
+          <label>Nombre</label>
+          <input [(ngModel)]="editUser.name" name="name" required />
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input
+            [(ngModel)]="editUser.email"
+            type="email"
+            name="email"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label>Nueva Contraseña</label>
+          <input
+            [(ngModel)]="editUser.password"
+            type="password"
+            name="password"
+            placeholder="Dejar en blanco para no cambiar"
+          />
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn-save">
+            <i class="fas fa-save"></i> Guardar
+          </button>
+          <button type="button" class="btn-cancel" (click)="editUser = null">
+            <i class="fas fa-times"></i> Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
 
-  <!-- CONVERSACIONES -->
-  <h2>Conversaciones</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Título</th>
-        <th>Descripción</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let conversation of conversations">
-        <td>{{ conversation.titulo }}</td>
-        <td>{{ conversation.descripcion }}</td>
-        <td>
-          <button (click)="editConversationData(conversation)">Editar</button>
+  <!-- Sección Conversaciones -->
+  <section class="admin-section">
+    <div class="section-header">
+      <h2><i class="fas fa-comments"></i> Gestión de Conversaciones</h2>
+      <div class="section-actions">
+        <button class="btn-refresh" (click)="loadConversations()">
+          <i class="fas fa-pencil-alt"></i> Editar
+        </button>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Comentarios</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let conversation of conversations">
+            <td>{{ conversation.id }}</td>
+            <td>{{ conversation.titulo }}</td>
+            <td>{{ conversation.user?.name || "Anónimo" }}</td>
+            <td>{{ conversation.comentarios_count || 0 }}</td>
+            <td class="actions">
+              <button
+                class="btn-edit"
+                (click)="editConversationData(conversation)"
+              >
+                <i class="fas fa-edit"></i>
+              </button>
+              <button
+                class="btn-delete"
+                (click)="
+                  deleteConversation(
+                    conversation.id,
+                    conversation.comentarios_count
+                  )
+                "
+              >
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Formulario Edición Conversación -->
+    <div *ngIf="editConversation" class="edit-form">
+      <h3><i class="fas fa-comment-edit"></i> Editar Conversación</h3>
+      <form (ngSubmit)="updateConversation()">
+        <div class="form-group">
+          <label>Título</label>
+          <input [(ngModel)]="editConversation.titulo" name="titulo" required />
+        </div>
+        <div class="form-group">
+          <label>Descripción</label>
+          <textarea
+            [(ngModel)]="editConversation.descripcion"
+            name="descripcion"
+            rows="3"
+            required
+          ></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn-save">
+            <i class="fas fa-save"></i> Guardar
+          </button>
           <button
             type="button"
-            (click)="
-              deleteConversation(
-                conversation.id,
-                conversation.comentarios_count
-              )
-            "
+            class="btn-cancel"
+            (click)="editConversation = null"
           >
-            Eliminar
+            <i class="fas fa-times"></i> Cancelar
           </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+        </div>
+      </form>
+    </div>
+  </section>
 
-  <div *ngIf="editConversation">
-  <h3>Editar Conversación</h3>
-  <form (ngSubmit)="updateConversation()" #convForm="ngForm">
-    <input [(ngModel)]="editConversation.titulo" name="titulo" placeholder="Título" required>
-    <input [(ngModel)]="editConversation.descripcion" name="editDescripcion" placeholder="Descripción" required>
-    <button type="submit">Guardar</button>
-    <button type="button" (click)="editConversation = null">Cancelar</button>
-  </form>
-</div>
+  <!-- Sección Comentarios -->
+  <section class="admin-section">
+    <div class="section-header">
+      <h2><i class="fas fa-comment-dots"></i> Gestión de Comentarios</h2>
+      <div class="section-actions">
+        <button class="btn-refresh" (click)="loadComments()">
+          <i class="fas fa-sync-alt"></i> Actualizar
+        </button>
+      </div>
+    </div>
 
+    <div class="table-responsive">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Usuario</th>
+            <th>Contenido</th>
+            <th>Conversación</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let comment of comments">
+            <td>{{ comment.id }}</td>
+            <td>{{ comment.user?.name || "Anónimo" }}</td>
+            <td>{{ comment.texto }}</td>
+            <td>{{ comment.conversation?.titulo || "N/A" }}</td>
+            <td class="actions">
+              <button class="btn-edit" (click)="editCommentData(comment)">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="btn-delete" (click)="deleteComment(comment.id)">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-
-  <hr />
-
-  <!-- COMENTARIOS EN CONVERSACIONES -->
-  <h2>Comentarios</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Usuario ID</th>
-        <th>Contenido</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let comment of comments">
-        <td>{{ comment.user_id }}</td>
-        <td>{{ comment.texto }}</td>
-        <td>
-          <button (click)="editCommentData(comment)">Editar</button>
-          <button type="button" (click)="deleteComment(comment.id)">
-            Eliminar
+    <!-- Formulario Edición Comentario -->
+    <div *ngIf="editComment" class="edit-form">
+      <h3><i class="fas fa-comment-edit"></i> Editar Comentario</h3>
+      <form (ngSubmit)="updateComment()">
+        <div class="form-group">
+          <label>Contenido</label>
+          <textarea
+            [(ngModel)]="editComment.texto"
+            name="texto"
+            rows="5"
+            required
+          ></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn-save">
+            <i class="fas fa-save"></i> Guardar
           </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div *ngIf="editComment">
-    <h3>Editar Comentario</h3>
-    <form (ngSubmit)="updateComment()">
-      <input
-        [(ngModel)]="editComment.texto"
-        name="texto"
-        placeholder="Contenido"
-        required
-      />
-      <button type="submit">Guardar</button>
-      <button type="button" (click)="editComment = null">Cancelar</button>
-    </form>
-  </div>
-
-  <hr />
-
-  <!-- COMENTARIOS EN PARTIDOS -->
-  <h2>Comentarios de Partidos</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Usuario ID</th>
-        <th>Contenido</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let gameComment of gameComments">
-        <td>{{ gameComment.user_id }}</td>
-        <td>{{ gameComment.content }}</td>
-        <td>
-          <button (click)="editGameCommentData(gameComment)">Editar</button>
-          <button type="button" (click)="deleteGameComment(gameComment.id)">
-            Eliminar
+          <button type="button" class="btn-cancel" (click)="editComment = null">
+            <i class="fas fa-times"></i> Cancelar
           </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+        </div>
+      </form>
+    </div>
+  </section>
 
-  <div *ngIf="editGameComment">
-    <h3>Editar Comentario de Partido</h3>
-    <form (ngSubmit)="updateGameComment()">
-      <input
-        [(ngModel)]="editGameComment.content"
-        name="gameContent"
-        placeholder="Contenido"
-        required
-      />
-      <button type="submit">Guardar</button>
-      <button type="button" (click)="editGameComment = null">Cancelar</button>
-    </form>
-  </div>
+  <!-- Sección Comentarios de Partidos -->
+  <section class="admin-section">
+    <div class="section-header">
+      <h2><i class="fas fa-basketball-ball"></i> Comentarios de Partidos</h2>
+      <div class="section-actions">
+        <button class="btn-refresh" (click)="loadGameComments()">
+          <i class="fas fa-sync-alt"></i> Actualizar
+        </button>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Usuario</th>
+            <th>Contenido</th>
+            <th>Partido</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let gameComment of gameComments">
+            <td>{{ gameComment.id }}</td>
+            <td>{{ gameComment.user?.name || "Anónimo" }}</td>
+            <td>{{ gameComment.content }}</td>
+            <td>
+              {{ gameComment.game?.away_team }} vs
+              {{ gameComment.game?.home_team }}
+            </td>
+            <td class="actions">
+              <button
+                class="btn-edit"
+                (click)="editGameCommentData(gameComment)"
+              >
+                <i class="fas fa-edit"></i>
+              </button>
+              <button
+                class="btn-delete"
+                (click)="deleteGameComment(gameComment.id)"
+              >
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Formulario Edición Comentario de Partido -->
+    <div *ngIf="editGameComment" class="edit-form">
+      <h3><i class="fas fa-edit"></i> Editar Comentario</h3>
+      <form (ngSubmit)="updateGameComment()">
+        <div class="form-group">
+          <label>Contenido</label>
+          <textarea
+            [(ngModel)]="editGameComment.content"
+            name="content"
+            rows="5"
+            required
+          ></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn-save">
+            <i class="fas fa-save"></i> Guardar
+          </button>
+          <button
+            type="button"
+            class="btn-cancel"
+            (click)="editGameComment = null"
+          >
+            <i class="fas fa-times"></i> Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
 </div>

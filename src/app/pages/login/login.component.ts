@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { TokenService } from 'src/app/services/token-service.service';
 
 @Component({
   selector: 'app-login',
@@ -38,10 +39,13 @@ export class LoginComponent implements OnInit {
   errorMessage = '';
   ballState = 'inactive';
 
+
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private token: TokenService
+
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -84,11 +88,15 @@ export class LoginComponent implements OnInit {
         form?.classList.add('shake');
         setTimeout(() => {
           form?.classList.remove('shake');
-        }, 500);
+        }, 50000);
       }
     });
   }
 
   get email() { return this.loginForm.get('email'); }
   get password() { return this.loginForm.get('password'); }
+
+    responseHandler(data: any) {
+    this.token.handleData(data.access_token);
+  }
 }
