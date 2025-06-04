@@ -12,8 +12,8 @@ export class ForumService {
   getComentarios(conversacionId: number) {
     throw new Error('Method not implemented.');
   }
-  private api = 'http://localhost:8000/api'; // URL de tu backend
-  // private api = 'https://hoopsfever.up.railway.app/api'; // URL de tu backend
+  // private api = 'http://localhost:8000/api'; // URL de tu backend
+  private api = 'https://hoopsfever.up.railway.app/api'; // URL de tu backend
 
   constructor(private http: HttpClient) {}
 
